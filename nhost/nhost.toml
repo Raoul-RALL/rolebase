@@ -149,6 +149,9 @@ issuer = 'nhost'
 [postgres]
 version = '14.20-20251217-1'
 
+[postgres.resources.storage]
+capacity = 1
+
 [provider]
 
 [storage]
