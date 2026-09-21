@@ -30,28 +30,12 @@ level = 'warn'
 [hasura.events]
 httpPoolSize = 100
 
-[hasura.resources.compute]
-cpu = 500
-memory = 1536
-
-[hasura.resources.networking]
-[[hasura.resources.networking.ingresses]]
-fqdn = ['hasura.rolebase.io']
-
 [functions]
 [functions.node]
 version = 22
 
 [auth]
 version = '0.50.0'
-
-[auth.resources.compute]
-cpu = 250
-memory = 256
-
-[auth.resources.networking]
-[[auth.resources.networking.ingresses]]
-fqdn = ['auth.rolebase.io']
 
 [auth.redirections]
 clientUrl = '{{ secrets.WEBAPP_URL }}'
@@ -165,21 +149,10 @@ issuer = 'nhost'
 [postgres]
 version = '14.20-20251217-1'
 
-[postgres.resources.compute]
-cpu = 1000
-memory = 2048
-
-[postgres.resources.storage]
-capacity = 10
-
 [provider]
 
 [storage]
 version = '0.13.0'
-
-[storage.resources.compute]
-cpu = 250
-memory = 256
 
 [observability]
 [observability.grafana]
