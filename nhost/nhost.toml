@@ -183,14 +183,6 @@ memory = 2048
 capacity = 10
 
 [provider]
-[provider.smtp]
-user = '{{ secrets.MAILJET_PUBIC_KEY }}'
-password = '{{ secrets.MAILJET_SMTP_PASSWORD }}'
-sender = 'noreply@rolebase.io'
-host = 'smtp-relay.brevo.com'
-port = 465
-secure = true
-method = 'PLAIN'
 
 [storage]
 version = '0.13.0'
