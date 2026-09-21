@@ -293,3 +293,4 @@ This repository uses two licenses:
 
 - The Rolebase application (everything outside `website/`) is licensed under the [MIT License](./LICENSE).
 - The `website/` directory is proprietary and governed by [`website/LICENSE`](./website/LICENSE). Its source is publicly visible but not licensed for reuse.
+ 
