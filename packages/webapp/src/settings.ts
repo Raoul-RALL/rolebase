@@ -7,10 +7,10 @@ export const isShareApp = /^\/share(\/|$)/.test(location.pathname)
 export default {
   // Webapp url
   url: isLocal
-    ? 'http://localhost:5175'
+    ? 'http://localhost:3032'
     : isStaging
     ? 'https://staging--rolebase.netlify.app'
-    : 'https://rolebase.io',
+    : 'https://rolebase.mondomaine.fr:3032',
 
   // Website url
   websiteUrl: 'https://rolebase.io',
@@ -18,11 +18,11 @@ export default {
   // Nhost
   nhost: {
     subdomain: isLocal
-      ? 'local'
+      ? 'vwbojmotgogofnwbwaeo'
       : isStaging
       ? 'jjvdhpoooerochuiusam'
-      : 'fsudktxishllphxeibqs',
-    region: isLocal ? undefined : 'eu-central-1',
+      : 'vwbojmotgogofnwbwaeo',
+    region: 'eu-central-1',
     // Disable auto signin on share app
     autoSignIn: !isShareApp,
     autoRefreshToken: !isShareApp,
@@ -30,10 +30,10 @@ export default {
   } as NhostClientOptions,
 
   functionsUrl: isLocal
-    ? 'https://local.functions.nhost.run/v1/'
+    ? 'https://vwbojmotgogofnwbwaeo.functions.eu-central-1.nhost.run/v1/'
     : isStaging
     ? 'https://jjvdhpoooerochuiusam.functions.eu-central-1.nhost.run/v1/'
-    : 'https://fsudktxishllphxeibqs.functions.eu-central-1.nhost.run/v1/',
+    : 'https://vwbojmotgogofnwbwaeo.functions.eu-central-1.nhost.run/v1/',
 
   backendUrl: isLocal ? 'http://localhost:8888' : 'https://api.rolebase.io',
 

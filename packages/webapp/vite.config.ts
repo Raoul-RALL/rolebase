@@ -76,6 +76,11 @@ export default defineConfig({
     port: Number(process.env.VITE_PORT) || 5175,
     host: process.env.VITE_HOST || undefined,
   },
+  preview: {
+    host: true,
+    port: 3032,
+    allowedHosts: ['rolebase.nafnafnafnaf0.synology.me'],
+  },
   resolve: {
     alias: [
       {
