@@ -18,10 +18,10 @@ export default {
   // Nhost
   nhost: {
     subdomain: isLocal
-      ? 'vwbojmotgogofnwbwaeo'
+      ? 'scgqkpwwssbncecwwlre'
       : isStaging
       ? 'jjvdhpoooerochuiusam'
-      : 'vwbojmotgogofnwbwaeo',
+      : 'scgqkpwwssbncecwwlre',
     region: 'eu-central-1',
     // Disable auto signin on share app
     autoSignIn: !isShareApp,
@@ -30,10 +30,10 @@ export default {
   } as NhostClientOptions,
 
   functionsUrl: isLocal
-    ? 'https://vwbojmotgogofnwbwaeo.functions.eu-central-1.nhost.run/v1/'
+    ? 'https://scgqkpwwssbncecwwlre.functions.eu-central-1.nhost.run/v1/'
     : isStaging
     ? 'https://jjvdhpoooerochuiusam.functions.eu-central-1.nhost.run/v1/'
-    : 'https://vwbojmotgogofnwbwaeo.functions.eu-central-1.nhost.run/v1/',
+    : 'https://scgqkpwwssbncecwwlre.functions.eu-central-1.nhost.run/v1/',
 
   backendUrl: isLocal ? 'http://localhost:8888' : 'https://api.rolebase.io',
 
