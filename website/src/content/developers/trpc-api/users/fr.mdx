@@ -1,6 +1,6 @@
 ---
 title: 'Utilisateurs'
-description: 'Procédure tRPC du routeur user : vérifier qu’un domaine d’email peut recevoir des emails avant la connexion.'
+description: 'Procédures tRPC du routeur user : vérifier qu’un domaine d’email peut recevoir des emails avant la connexion, et demander un email de réinitialisation de mot de passe.'
 order: 7.5
 ---
 
@@ -19,5 +19,23 @@ Elle renvoie `{ valid }`. `valid` vaut `false` quand le domaine est mal formé, 
 ```typescript
 const { valid } = await trpc.user.checkEmailDomain.query({
   domain: 'example.com',
+})
+```
+
+## Mutation `user.requestPasswordReset`
+
+Envoie un email de réinitialisation de mot de passe. Cette procédure est publique, car elle est appelée depuis la page « mot de passe oublié », avant toute connexion.
+
+| Input | Type | Description |
+| --- | --- | --- |
+| `email` | `String` | Email du compte. Requis. |
+| `redirectTo` | `String` | URL vers laquelle le navigateur revient une fois le mot de passe réinitialisé. Requis. |
+
+Elle génère le même type de ticket que Nhost Auth aurait lui-même émis, l'enregistre sur le compte, puis envoie par email un lien construit à partir de ce ticket. Ce lien passe toujours par le point de vérification d'Auth, donc la suite du parcours (vérification du ticket, reconnexion de l'utilisateur) reste inchangée. La réponse ne révèle jamais si le compte existe : un email inconnu, désactivé, ou pour lequel un ticket a déjà été émis il y a moins d'une minute, ne fait rien silencieusement.
+
+```typescript
+await trpc.user.requestPasswordReset.mutate({
+  email: 'user@example.com',
+  redirectTo: `${window.location.origin}/settings/credentials`,
 })
 ```

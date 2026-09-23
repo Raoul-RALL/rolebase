@@ -1,6 +1,6 @@
 ---
 title: 'Users'
-description: 'tRPC procedure of the user router: check that an email domain can receive emails before signing in.'
+description: 'tRPC procedures of the user router: check that an email domain can receive emails before signing in, and request a password reset email.'
 order: 7.5
 ---
 
@@ -19,5 +19,23 @@ It returns `{ valid }`. `valid` is `false` when the domain is malformed, unknown
 ```typescript
 const { valid } = await trpc.user.checkEmailDomain.query({
   domain: 'example.com',
+})
+```
+
+## Mutation `user.requestPasswordReset`
+
+Sends a password reset email. This procedure is public, since it is called from the "forgot password" page, before any session exists.
+
+| Input | Type | Description |
+| --- | --- | --- |
+| `email` | `String` | Account email. Required. |
+| `redirectTo` | `String` | URL the reset link sends the browser back to once the password has been reset. Required. |
+
+It generates the same kind of ticket Nhost Auth itself would issue, stores it on the account, and emails a link built from it. The link still goes through Auth's own verification endpoint, so the rest of the reset flow (verifying the ticket, signing the user back in) is unchanged. The response never reveals whether the account exists: an unknown or disabled email, or an email for which a ticket was issued less than a minute ago, is a silent no-op.
+
+```typescript
+await trpc.user.requestPasswordReset.mutate({
+  email: 'user@example.com',
+  redirectTo: `${window.location.origin}/settings/credentials`,
 })
 ```

@@ -52,7 +52,7 @@ services:
             AUTH_RATE_LIMIT_SMS_INTERVAL: 1h
             AUTH_REFRESH_TOKEN_EXPIRES_IN: "2592000"
             AUTH_REQUIRE_ELEVATED_CLAIM: disabled
-            AUTH_SERVER_URL: https://local.auth.local.nhost.run/v1
+            AUTH_SERVER_URL: https://rolebase-auth.nafnafnafnaf0.synology.me/v1
             AUTH_SMTP_AUTH_METHOD: LOGIN
             AUTH_SMTP_HOST: smtp.free.fr
             AUTH_SMTP_PASS: ${SMTP_PASS}

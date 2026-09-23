@@ -20,7 +20,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { nhost } from 'src/nhost'
+import { trpc } from 'src/trpc'
 import * as yup from 'yup'
 
 type Params = {
@@ -61,11 +61,9 @@ export default function ResetPasswordPage() {
   const onSubmit = async ({ email }: Values) => {
     setIsLoading(true)
     try {
-      await nhost.auth.sendPasswordResetEmail({
+      await trpc.user.requestPasswordReset.mutate({
         email,
-        options: {
-          redirectTo: `${window.location.origin}/settings/credentials`,
-        },
+        redirectTo: `${window.location.origin}/settings/credentials`,
       })
       setIsSent(true)
     } catch (error: any) {

@@ -19,6 +19,7 @@ export async function sendSmtpEmail(...messages: EmailMessage[]) {
       to: message.To.map((r) => `"${r.Name}" <${r.Email}>`).join(', '),
       subject: message.Subject,
       html: message.HTMLPart,
+      text: message.TextPart,
       headers: {
         'Auto-Submitted': 'auto-generated',
       },

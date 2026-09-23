@@ -49,6 +49,13 @@ export default {
     adminSecret: process.env.NHOST_ADMIN_SECRET || 'nhost-admin-secret',
   },
 
+  auth: {
+    // Base URL of the Nhost Auth service, used to build the link inside the
+    // password reset email (see requestPasswordReset.ts)
+    serverUrl:
+      process.env.AUTH_SERVER_URL || 'https://local.auth.local.nhost.run/v1',
+  },
+
   jwtSecret:
     process.env.NHOST_JWT_SECRET ||
     (process.env.HASURA_GRAPHQL_JWT_SECRET
