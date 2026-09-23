@@ -2,6 +2,7 @@ import { NhostClientOptions } from '@nhost/nhost-js'
 
 export const isLocal = location.hostname === 'localhost'
 export const isStaging = location.hostname === 'staging--rolebase.netlify.app'
+export const isSynology = location.hostname.endsWith('synology.me')
 export const isShareApp = /^\/share(\/|$)/.test(location.pathname)
 
 export default {
@@ -10,6 +11,8 @@ export default {
     ? 'http://localhost:3032'
     : isStaging
     ? 'https://staging--rolebase.netlify.app'
+    : isSynology
+    ? 'https://rolebase.nafnafnafnaf0.synology.me:3032'
     : 'https://rolebase.mondomaine.fr:3032',
 
   // Website url
@@ -18,11 +21,22 @@ export default {
   // Nhost
   nhost: {
     subdomain: isLocal
-      ? 'scgqkpwwssbncecwwlre'
+      ? 'local'
       : isStaging
       ? 'jjvdhpoooerochuiusam'
+      : isSynology
+      ? undefined
       : 'scgqkpwwssbncecwwlre',
-    region: 'eu-central-1',
+    region: isLocal || isSynology ? undefined : 'eu-central-1',
+    authUrl: isSynology
+      ? 'https://rolebase-auth.nafnafnafnaf0.synology.me/v1'
+      : undefined,
+    graphqlUrl: isSynology
+      ? 'https://rolebase-graphql.nafnafnafnaf0.synology.me/v1'
+      : undefined,
+    storageUrl: isSynology
+      ? 'https://rolebase-storage.nafnafnafnaf0.synology.me/v1'
+      : undefined,
     // Disable auto signin on share app
     autoSignIn: !isShareApp,
     autoRefreshToken: !isShareApp,
@@ -30,12 +44,18 @@ export default {
   } as NhostClientOptions,
 
   functionsUrl: isLocal
-    ? 'https://scgqkpwwssbncecwwlre.functions.eu-central-1.nhost.run/v1/'
+    ? 'https://local.functions.local.nhost.run/v1/'
     : isStaging
     ? 'https://jjvdhpoooerochuiusam.functions.eu-central-1.nhost.run/v1/'
+    : isSynology
+    ? 'https://rolebase-functions.nafnafnafnaf0.synology.me/v1/'
     : 'https://scgqkpwwssbncecwwlre.functions.eu-central-1.nhost.run/v1/',
 
-  backendUrl: isLocal ? 'http://localhost:8888' : 'https://api.rolebase.io',
+  backendUrl: isLocal
+    ? 'http://localhost:8888'
+    : isSynology
+    ? 'https://rolebase-backend.nafnafnafnaf0.synology.me'
+    : 'https://api.rolebase.io',
 
   yjsCollab: {
     url: isLocal ? 'ws://localhost:1234' : 'wss://collab.rolebase.io',
