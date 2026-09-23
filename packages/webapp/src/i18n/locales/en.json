@@ -1041,7 +1041,8 @@
     "api": "API keys",
     "export": "Export",
     "superAdmin": "Administration",
-    "toastSaved": "Settings saved!"
+    "toastSaved": "Settings saved!",
+    "mustBeOwner": "You must be an owner of this org to access this page"
   },
   "Sidebar": {
     "close": "Close sidebar",

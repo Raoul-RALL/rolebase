@@ -1,4 +1,5 @@
 import { Title } from '@/common/atoms/Title'
+import useOrgOwner from '@/member/hooks/useOrgOwner'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Heading, Icon, Link, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
@@ -7,6 +8,7 @@ import APICard from '../components/APICard'
 
 export default function ApiPage() {
   const { t, i18n } = useTranslation()
+  const isOwner = useOrgOwner()
 
   return (
     <>
@@ -17,20 +19,30 @@ export default function ApiPage() {
           {t('Settings.api')}
         </Heading>
 
-        <Text>{t('APICard.description')}</Text>
+        {!isOwner && (
+          <Text as="b" color="red.500">
+            {t('Settings.mustBeOwner')}
+          </Text>
+        )}
 
-        <Link
-          href={`/${i18n.language}/developers/custom-integrations`}
-          isExternal
-          color="blue.500"
-          display="inline-flex"
-          alignItems="center"
-          w="fit-content"
-        >
-          {t('APICard.viewDocs')} <Icon as={ExternalLinkIcon} ml={1} />
-        </Link>
+        {isOwner && (
+          <>
+            <Text>{t('APICard.description')}</Text>
 
-        <APICard />
+            <Link
+              href={`/${i18n.language}/developers/custom-integrations`}
+              isExternal
+              color="blue.500"
+              display="inline-flex"
+              alignItems="center"
+              w="fit-content"
+            >
+              {t('APICard.viewDocs')} <Icon as={ExternalLinkIcon} ml={1} />
+            </Link>
+
+            <APICard />
+          </>
+        )}
       </VStack>
     </>
   )

@@ -1074,7 +1074,8 @@
     "api": "Clés API",
     "export": "Export",
     "superAdmin": "Administration",
-    "toastSaved": "Paramètres enregistrés !"
+    "toastSaved": "Paramètres enregistrés !",
+    "mustBeOwner": "Vous devez être propriétaire de l'organisation pour accéder à cette page"
   },
   "Sidebar": {
     "close": "Fermer la barre latérale",

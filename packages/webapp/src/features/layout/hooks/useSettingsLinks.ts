@@ -84,17 +84,17 @@ export default function useSettingsLinks(): SettingsLinksGroup[] {
             icon: NotificationIcon,
             label: t('SettingsMenu.user.notifications'),
           },
-          {
+          isOwner && {
             to: `${pathBase}/apps`,
             icon: AppsIcon,
             label: t('Settings.apps'),
           },
-          {
+          isOwner && {
             to: `${pathBase}/api-keys`,
             icon: ApiIcon,
             label: t('Settings.api'),
           },
-        ],
+        ].filter(truthy),
       },
     ]
   }, [orgId, isAdmin, isOwner, pathBase, t])

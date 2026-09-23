@@ -1,6 +1,7 @@
 import Loading from '@/common/atoms/Loading'
 import TextErrors from '@/common/atoms/TextErrors'
 import { Title } from '@/common/atoms/Title'
+import useOrgOwner from '@/member/hooks/useOrgOwner'
 import { usePathInOrg } from '@/org/hooks/usePathInOrg'
 import { useAuth } from '@/user/hooks/useAuth'
 import { Heading, Link, Text, VStack } from '@chakra-ui/react'
@@ -23,10 +24,11 @@ export default function AppsPage() {
   const { t } = useTranslation()
   const { user } = useAuth()
   const apiPath = usePathInOrg('settings/api-keys')
+  const isOwner = useOrgOwner()
 
   // Get user apps
   const { data, error, loading } = useUserAppsSubscription({
-    skip: !user,
+    skip: !user || !isOwner,
     variables: { userId: user?.id! },
   })
   const userApps = data?.user_app
@@ -34,27 +36,39 @@ export default function AppsPage() {
   return (
     <>
       <Title>{t('Settings.apps')}</Title>
-      {loading && <Loading active center />}
-      <TextErrors errors={[error]} />
 
       <VStack spacing={10} align="stretch" maxW="3xl">
         <Heading as="h1" size="lg">
           {t('Settings.apps')}
         </Heading>
-        {apps.map(({ type }) => (
-          <AppCard
-            key={type}
-            type={type}
-            userApp={userApps?.find((app) => app.type === type)}
-          />
-        ))}
 
-        <Text>
-          {t('AppsPage.apiInfo')}{' '}
-          <Link as={RouterLink} to={apiPath} color="blue.500">
-            {t('AppsPage.apiLink')}
-          </Link>
-        </Text>
+        {!isOwner && (
+          <Text as="b" color="red.500">
+            {t('Settings.mustBeOwner')}
+          </Text>
+        )}
+
+        {isOwner && (
+          <>
+            {loading && <Loading active center />}
+            <TextErrors errors={[error]} />
+
+            {apps.map(({ type }) => (
+              <AppCard
+                key={type}
+                type={type}
+                userApp={userApps?.find((app) => app.type === type)}
+              />
+            ))}
+
+            <Text>
+              {t('AppsPage.apiInfo')}{' '}
+              <Link as={RouterLink} to={apiPath} color="blue.500">
+                {t('AppsPage.apiLink')}
+              </Link>
+            </Text>
+          </>
+        )}
       </VStack>
     </>
   )
