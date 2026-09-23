@@ -32,6 +32,14 @@ Résume une réunion à partir de ses étapes, notes et fils de discussion, pour
 
 Elle renvoie le résumé en markdown. Une réunion inconnue répond `NOT_FOUND`.
 
+## Requête `ai.isEnabled`
+
+Indique si les fonctionnalités IA sont utilisables, c'est-à-dire si une clé OpenAI est configurée côté backend. Publique, car le webapp l'utilise pour masquer les boutons « Générer automatiquement » (résumé de réunion, brouillon de rôle) sur les instances sans clé, comme les instances self-hostées, plutôt que de les laisser échouer au clic.
+
+```typescript
+const enabled = await trpc.ai.isEnabled.query()
+```
+
 ## Requête `search.getAlgoliaConfig`
 
 Renvoie les identifiants de recherche d’une organisation, pour tout membre y compris Readonly.

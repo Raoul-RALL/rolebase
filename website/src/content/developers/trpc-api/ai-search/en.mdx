@@ -32,6 +32,14 @@ Summarizes a meeting from its steps, notes and threads, for a Member of the orga
 
 It returns the summary as markdown. An unknown meeting answers `NOT_FOUND`.
 
+## Query `ai.isEnabled`
+
+Tells whether AI features are usable at all, i.e. whether an OpenAI key is configured on the backend. Public, since the webapp uses it to hide the "Generate automatically" buttons (meeting summary, role draft) on instances with no key, such as self-hosted ones, instead of letting them fail on click.
+
+```typescript
+const enabled = await trpc.ai.isEnabled.query()
+```
+
 ## Query `search.getAlgoliaConfig`
 
 Returns the search credentials of an organization, for any member including Readonly.

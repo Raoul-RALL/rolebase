@@ -1,3 +1,4 @@
+import useAiEnabled from '@/ai/hooks/useAiEnabled'
 import IconTextButton from '@/common/atoms/IconTextButton'
 import Markdown from '@/common/atoms/Markdown'
 import { EditorHandle } from '@/editor'
@@ -31,6 +32,7 @@ export default function MeetingPanelEnded() {
   const editorRef = useRef<EditorHandle>(null)
 
   const { meeting, canEdit, isEnded } = useContext(MeetingContext)!
+  const aiEnabled = useAiEnabled()
 
   const [updateMeeting] = useUpdateMeetingMutation()
   const [editing, setEditing] = useState(false)
@@ -156,14 +158,16 @@ export default function MeetingPanelEnded() {
                     {t('common.cancel')}
                   </Button>
                 )}
-                <Button
-                  leftIcon={<MagicIcon />}
-                  isDisabled={saving}
-                  isLoading={generating}
-                  onClick={handleGenerate}
-                >
-                  {t('MeetingPanelEnded.generate')}
-                </Button>
+                {aiEnabled && (
+                  <Button
+                    leftIcon={<MagicIcon />}
+                    isDisabled={saving}
+                    isLoading={generating}
+                    onClick={handleGenerate}
+                  >
+                    {t('MeetingPanelEnded.generate')}
+                  </Button>
+                )}
                 <Button
                   colorScheme="blue"
                   isLoading={saving}
