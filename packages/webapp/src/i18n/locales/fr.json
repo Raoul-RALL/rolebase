@@ -1092,8 +1092,7 @@
     "help": "Aide"
   },
   "HelpMenu": {
-    "documentation": "Documentation",
-    "contact": "Nous contacter"
+    "documentation": "Documentation"
   },
   "SignupForm": {
     "heading": "Créez votre compte Rolebase",
