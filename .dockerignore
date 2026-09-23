@@ -19,6 +19,7 @@ packages/*
 !packages/emails
 !packages/editor
 !packages/graph
+!packages/collab
 
 # Builds
 dist

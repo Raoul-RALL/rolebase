@@ -58,7 +58,11 @@ export default {
     : 'https://api.rolebase.io',
 
   yjsCollab: {
-    url: isLocal ? 'ws://localhost:1234' : 'wss://collab.rolebase.io',
+    url: isLocal
+      ? 'ws://localhost:1234'
+      : isSynology
+      ? 'wss://rolebase-collab.nafnafnafnaf0.synology.me'
+      : 'wss://collab.rolebase.io',
   },
 
   // Files
