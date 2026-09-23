@@ -1,6 +1,6 @@
 ---
 title: 'Users'
-description: 'tRPC procedures of the user router: check that an email domain can receive emails before signing in, and request a password reset email.'
+description: 'tRPC procedures of the user router: check that an email domain can receive emails before signing in, and request a password reset or email verification email.'
 order: 7.5
 ---
 
@@ -37,5 +37,23 @@ It generates the same kind of ticket Nhost Auth itself would issue, stores it on
 await trpc.user.requestPasswordReset.mutate({
   email: 'user@example.com',
   redirectTo: `${window.location.origin}/settings/credentials`,
+})
+```
+
+## Mutation `user.requestEmailVerification`
+
+Sends an email address verification email, right after signup or as a resend. Public, for the same reason as `requestPasswordReset`: it is called with an email the caller already knows (the one just used to sign up, or the current user's own), never someone else's.
+
+| Input | Type | Description |
+| --- | --- | --- |
+| `email` | `String` | Account email. Required. |
+| `redirectTo` | `String` | URL the verification link sends the browser back to once the email is verified. Optional. |
+
+Same mechanism as `requestPasswordReset`: it generates the ticket Nhost Auth itself would issue (valid 30 days, matching Auth's own default), stores it on the account, and emails a link built from it. A silent no-op if the account does not exist, is already verified, or already got a ticket less than a minute ago.
+
+```typescript
+await trpc.user.requestEmailVerification.mutate({
+  email: 'user@example.com',
+  redirectTo: window.location.href,
 })
 ```

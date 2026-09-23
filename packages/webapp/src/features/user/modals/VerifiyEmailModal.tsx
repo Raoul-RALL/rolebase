@@ -12,7 +12,7 @@ import {
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { track } from 'src/analytics'
-import { nhost } from 'src/nhost'
+import { trpc } from 'src/trpc'
 
 export default function VerifyEmailModal() {
   const { user } = useAuth()
@@ -21,7 +21,7 @@ export default function VerifyEmailModal() {
   const { t } = useTranslation()
 
   const handleResendEmail = async () => {
-    await nhost.auth.sendVerificationEmail({
+    await trpc.user.requestEmailVerification.mutate({
       email: user?.email!,
     })
     track('auth_verification_resent')

@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { track } from 'src/analytics'
 import { nhost } from 'src/nhost'
+import { trpc } from 'src/trpc'
 
 import * as yup from 'yup'
 import { AuthStep } from '../pages/AuthPage'
@@ -81,9 +82,9 @@ export default function SignupForm({ defaultEmail, onStepChange }: Props) {
       track('auth_signup_succeeded', { invitation: isInvitation })
 
       if (user.email && !user.emailVerified) {
-        await nhost.auth.sendVerificationEmail({
+        await trpc.user.requestEmailVerification.mutate({
           email: user.email,
-          options: { redirectTo: window.location.href },
+          redirectTo: window.location.href,
         })
       }
 
