@@ -5,7 +5,6 @@ import {
   Collapse,
   Flex,
   IconButton,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -18,10 +17,8 @@ import {
 import { UserLocalStorageKeys } from '@utils/localStorage'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { track } from 'src/analytics'
 import { ChevronDownIcon, ChevronUpIcon, MoreIcon } from 'src/icons'
 import useOnboardingTodo from '../hooks/useOnboardingTodo'
-import { BOOK_DEMO_URL } from '../onboardingTodo'
 import OnboardingTodoInviteItem from './OnboardingTodoInviteItem'
 import OnboardingTodoItem from './OnboardingTodoItem'
 import OnboardingTodoRecurringItem from './OnboardingTodoRecurringItem'
@@ -58,8 +55,6 @@ export default function OnboardingTodo() {
       // Storage unavailable: the state only lives in memory
     }
   }
-
-  const handleBookDemo = () => track('book_demo_clicked', { source: 'todo' })
 
   if (!visible || loading) return null
 
@@ -145,23 +140,6 @@ export default function OnboardingTodo() {
             to={`${rootPath}settings/members`}
           />
         </VStack>
-
-        {/* Outside the counter: nobody should have to book a demo to finish */}
-        <Link
-          href={BOOK_DEMO_URL}
-          isExternal
-          display="block"
-          mt={2}
-          pt={2}
-          px={2}
-          borderTopWidth="1px"
-          fontSize="sm"
-          color="blue.600"
-          _dark={{ color: 'blue.300' }}
-          onClick={handleBookDemo}
-        >
-          {t('OnboardingTodo.bookDemo')}
-        </Link>
       </Collapse>
     </Box>
   )
