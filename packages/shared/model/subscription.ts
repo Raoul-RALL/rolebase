@@ -7,7 +7,7 @@ import {
 } from '../gql'
 
 export const SubscriptionLimits = {
-  free: 5,
+  free: Infinity,
   [Subscription_Plan_Type_Enum.Startup]: Infinity,
   [Subscription_Plan_Type_Enum.Business]: Infinity,
 } satisfies Record<Subscription_Plan_Type_Enum | 'free', number>
