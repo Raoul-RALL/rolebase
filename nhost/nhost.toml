@@ -39,6 +39,7 @@ version = '0.51.0'
 
 [auth.redirections]
 clientUrl = '{{ secrets.WEBAPP_URL }}'
+allowedUrls = ['http://localhost:3032']
 
 [auth.signUp]
 enabled = true
@@ -153,6 +154,14 @@ version = '14.20-20251217-1'
 capacity = 1
 
 [provider]
+[provider.smtp]
+host = 'smtp.free.fr'
+port = 465
+secure = true
+user = '{{ secrets.SMTP_USER }}'
+password = '{{ secrets.SMTP_PASS }}'
+sender = '{{ secrets.SMTP_SENDER }}'
+method = 'LOGIN'
 
 [storage]
 version = '0.13.0'
