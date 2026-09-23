@@ -1197,6 +1197,8 @@
     "currentPlan": "Plan actuel",
     "activeMember_one": "{{count}}/{{total}} membre actif",
     "activeMember_other": "{{count}}/{{total}} membres actifs",
+    "activeMemberUnlimited_one": "{{count}} membre actif",
+    "activeMemberUnlimited_other": "{{count}} membres actifs",
     "upgradePlan": "Passer au plan supérieur",
     "downgradePlan": "Repasser sur ce plan",
     "selectPlan": "Selectionner sur ce plan",
@@ -1223,7 +1225,7 @@
       "desc": "Parfait pour tester et pour collaborer en petite équipe.",
       "feature1": "Tarif : 0€",
       "feature2": "Toutes les fonctionnalités",
-      "feature3": "5 membres actifs maximum"
+      "feature3": "Membres actifs en illimité"
     },
     "startup": {
       "title": "Startup",

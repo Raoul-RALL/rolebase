@@ -1,10 +1,11 @@
 import { useOrgContext } from '@/org/contexts/OrgContext'
 import ParticipantsGroup from '@/participants/components/ParticipantsGroup'
 import { Flex, FlexProps, Text, useBreakpointValue } from '@chakra-ui/react'
+import { SubscriptionLimits } from '@rolebase/shared/model/subscription'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const MAX_MEMBERS_FREE = 5
+const MAX_MEMBERS_FREE = SubscriptionLimits.free
 
 export default function SubscriptionFreePlanCardFooter(props: FlexProps) {
   const { t } = useTranslation()
@@ -33,15 +34,19 @@ export default function SubscriptionFreePlanCardFooter(props: FlexProps) {
         }}
         color="gray.500"
       >
-        {t('SubscriptionPlans.activeMember', {
-          count: filteredMembers?.length ?? 0,
-          total: MAX_MEMBERS_FREE,
-        })}
+        {Number.isFinite(MAX_MEMBERS_FREE)
+          ? t('SubscriptionPlans.activeMember', {
+              count: filteredMembers?.length ?? 0,
+              total: MAX_MEMBERS_FREE,
+            })
+          : t('SubscriptionPlans.activeMemberUnlimited', {
+              count: filteredMembers?.length ?? 0,
+            })}
       </Text>
       {filteredMembers && (
         <ParticipantsGroup
           size={size}
-          max={MAX_MEMBERS_FREE}
+          max={Number.isFinite(MAX_MEMBERS_FREE) ? MAX_MEMBERS_FREE : undefined}
           participants={filteredMembers}
         />
       )}

@@ -223,7 +223,9 @@ export default function MembersPage() {
             ))}
 
           {/* Subscription info */}
-          {isOwner && !orgSubscription.isActive && (
+          {isOwner &&
+            !orgSubscription.isActive &&
+            Number.isFinite(orgSubscription.subscriptionSeats) && (
             <Alert
               status="info"
               bg="yellow.50"

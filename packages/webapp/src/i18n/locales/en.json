@@ -1161,6 +1161,8 @@
     "currentPlan": "Current plan",
     "activeMember_one": "{{count}}/{{total}} active member",
     "activeMember_other": "{{count}}/{{total}} active members",
+    "activeMemberUnlimited_one": "{{count}} active member",
+    "activeMemberUnlimited_other": "{{count}} active members",
     "upgradePlan": "Upgrade to this plan",
     "downgradePlan": "Go back to this plan",
     "selectPlan": "Select this plan",
@@ -1187,7 +1189,7 @@
       "desc": "Perfect to try or work with a small team",
       "feature1": "Price: 0€",
       "feature2": "All features",
-      "feature3": "Limited to 5 active members"
+      "feature3": "Unlimited active members"
     },
     "startup": {
       "title": "Startup",
