@@ -50,3 +50,30 @@ doit être répercutée manuellement dans `docker/docker-compose.prod.yaml` — 
 plus régénéré automatiquement. Pour une modification de config Hasura pure (permissions,
 metadata), le plus simple reste `nhost/metadata/` + le skill `apply-hasura-metadata`, qui
 s'applique directement à l'instance Hasura en cours d'exécution sans redémarrage.
+
+## Démarrage automatique (backend, webapp, collab)
+
+La stack Nhost (`docker compose -f docker/docker-compose.prod.yaml up -d`) redémarre
+seule après un reboot : tous ses conteneurs sont en `restart: always`, et le service
+`docker` est activé au boot (`systemctl enable docker`).
+
+Le **backend** (`packages/backend`, API tRPC/GraphQL) et le **webapp** (`packages/webapp`,
+build statique servi par `vite preview`) ne sont pas conteneurisés : ils tournent en
+process direct, gérés par systemd via `docker/systemd/rolebase-backend.service` et
+`docker/systemd/rolebase-webapp.service`. Ces fichiers contiennent le chemin absolu vers
+le binaire Node géré par nvm et l'utilisateur système (`raoul`) — à adapter s'ils changent.
+
+```bash
+sudo cp docker/systemd/rolebase-backend.service docker/systemd/rolebase-webapp.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now rolebase-backend rolebase-webapp
+```
+
+Le **collab** (`packages/collab`, serveur yjs) est conteneurisé (`packages/collab/Dockerfile`,
+`npm run docker:build` puis `npm run docker:run`) avec `--restart always` et un volume
+(`rolebase_collab_data`) pour la persistance des documents.
+
+```bash
+journalctl -u rolebase-backend -f   # logs du backend
+journalctl -u rolebase-webapp -f    # logs du webapp
+```

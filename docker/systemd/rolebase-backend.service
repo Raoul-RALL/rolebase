@@ -1,0 +1,16 @@
+[Unit]
+Description=Rolebase backend (tRPC/GraphQL API)
+After=network-online.target docker.service
+Wants=network-online.target docker.service
+
+[Service]
+Type=simple
+User=raoul
+WorkingDirectory=/home/raoul/DevSite/Rolebase/packages/backend
+Environment=NODE_ENV=production
+ExecStart=/home/raoul/.nvm/versions/node/v22.23.2/bin/npx tsx src/index.ts
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

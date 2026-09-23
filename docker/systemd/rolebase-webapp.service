@@ -1,0 +1,15 @@
+[Unit]
+Description=Rolebase webapp (static build preview server)
+After=network-online.target rolebase-backend.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=raoul
+WorkingDirectory=/home/raoul/DevSite/Rolebase/packages/webapp
+ExecStart=/home/raoul/.nvm/versions/node/v22.23.2/bin/npx vite preview --port 3032 --host
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
