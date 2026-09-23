@@ -13,7 +13,6 @@ export const useSubscriptionPlanData = () => {
         title: t('SubscriptionPlans.free.title'),
         desc: t('SubscriptionPlans.free.desc'),
         features: [
-          t('SubscriptionPlans.free.feature1'),
           t('SubscriptionPlans.free.feature2'),
           t('SubscriptionPlans.free.feature3'),
         ],

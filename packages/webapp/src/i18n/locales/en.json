@@ -1185,9 +1185,8 @@
     "subscriptionCreated": "Your subscription has been successfully created 😀",
     "invoiceAvailable": "Your €{{amount}} invoice can be downloaded from the Invoices tab",
     "free": {
-      "title": "Free",
+      "title": "Local",
       "desc": "Perfect to try or work with a small team",
-      "feature1": "Price: 0€",
       "feature2": "All features",
       "feature3": "Unlimited active members"
     },

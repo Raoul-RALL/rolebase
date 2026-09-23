@@ -1221,9 +1221,8 @@
     "subscriptionCreated": "Votre abonnement a été créé 😀",
     "invoiceAvailable": "Votre facture de {{amount}}€ peut être téléchargée depuis l'onglet Factures",
     "free": {
-      "title": "Gratuit",
-      "desc": "Parfait pour tester et pour collaborer en petite équipe.",
-      "feature1": "Tarif : 0€",
+      "title": "Local",
+      "desc": "Parfait pour collaborer en petite équipe.",
       "feature2": "Toutes les fonctionnalités",
       "feature3": "Membres actifs en illimité"
     },
