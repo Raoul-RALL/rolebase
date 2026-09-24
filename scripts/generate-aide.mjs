@@ -76,6 +76,14 @@ function rewriteHtml(html, page, pages) {
     'href="https://rolebase.io" target="_blank" rel="noopener noreferrer" class="no-underline hover:underline"'
   )
 
+  // Drop the "Book a demo" / "Log in / Sign up" header CTAs: irrelevant in
+  // an internal help mirror. Keep the wrapping [data-right] div itself
+  // (emptied), since the mobile-menu script clones it unconditionally.
+  html = html.replace(
+    /(<div class="flex items-center gap-3" data-right>)[\s\S]*?(<\/div>)/,
+    '$1$2'
+  )
+
   // Local assets: /_astro/... and /favicon.svg -> /aide/_astro/... and /aide/favicon.svg
   html = html.replaceAll('/_astro/', '/aide/_astro/')
   html = html.replaceAll('href="/favicon.svg"', 'href="/aide/favicon.svg"')
@@ -211,6 +219,32 @@ function main() {
     const html = readFileSync(page.src, 'utf8')
     for (const m of html.matchAll(assetRe)) assets.add(m[0])
   }
+
+  // Follow static `from"./chunk.js"` imports one level deep, so unconditional
+  // top-of-module dependencies (e.g. the analytics/preload-helper chunks
+  // BaseLayout always imports) resolve instead of 404ing. Deliberately skips
+  // dynamic `import("./chunk.js")` calls: those are lazy, feature-gated
+  // bundles (mermaid diagrams, the homepage org-chart demo, ...) that never
+  // run on docs/guides pages and would pull in megabytes of unrelated code.
+  const staticImportRe = /from"\.\/([A-Za-z0-9_.-]+\.(?:js|css))"/g
+  let toScan = [...assets]
+  while (toScan.length) {
+    const next = []
+    for (const asset of toScan) {
+      const src = join(distDir, asset)
+      if (!existsSync(src)) continue
+      const content = readFileSync(src, 'utf8')
+      for (const m of content.matchAll(staticImportRe)) {
+        const dep = `/_astro/${m[1]}`
+        if (!assets.has(dep)) {
+          assets.add(dep)
+          next.push(dep)
+        }
+      }
+    }
+    toScan = next
+  }
+
   mkdirSync(join(aideDir, '_astro'), { recursive: true })
   for (const asset of assets) {
     const src = join(distDir, asset)
