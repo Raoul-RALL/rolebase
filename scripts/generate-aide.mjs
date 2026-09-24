@@ -248,7 +248,22 @@ function main() {
   mkdirSync(join(aideDir, '_astro'), { recursive: true })
   for (const asset of assets) {
     const src = join(distDir, asset)
-    if (existsSync(src)) cpSync(src, join(aideDir, asset))
+    if (!existsSync(src)) continue
+    if (asset.endsWith('.css')) {
+      // Some CSS chunks (e.g. CirclesBackground) carry a duplicate
+      // @font-face block with bare, unhashed font URLs alongside the
+      // correctly hashed one already inlined in <head>. Those bare files
+      // don't exist under the hashed asset names, so they 404 harmlessly on
+      // the live site too; strip them here since we can fix our own mirror.
+      const css = readFileSync(src, 'utf8').replace(
+        /@font-face\{[^}]*-webfont\.eot\)[^}]*\}/g,
+        ''
+      )
+      mkdirSync(dirname(join(aideDir, asset)), { recursive: true })
+      writeFileSync(join(aideDir, asset), css)
+      continue
+    }
+    cpSync(src, join(aideDir, asset))
   }
   cpSync(join(distDir, 'favicon.svg'), join(aideDir, 'favicon.svg'))
 
