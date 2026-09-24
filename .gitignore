@@ -16,6 +16,9 @@ public/emails/icons
 storybook-static
 .react-email
 
+# Generated local help mirror (see scripts/generate-aide.mjs)
+/aide
+
 # Rollup visualizer
 stats.html
 

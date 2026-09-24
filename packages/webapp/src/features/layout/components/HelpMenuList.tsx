@@ -8,7 +8,7 @@ import settings from 'src/settings'
 export default function HelpMenuList() {
   const { t, i18n } = useTranslation()
 
-  // Documentation is on the website, in the user's language
+  // Documentation is served locally (see rolebase-aide.service), in the user's language
   const lang = i18n.language.split('-')[0]
   const docsLang = langs.includes(lang as (typeof langs)[number]) ? lang : 'en'
 
@@ -16,7 +16,7 @@ export default function HelpMenuList() {
     <MenuList zIndex={10} shadow="lg">
       <MenuItem
         as="a"
-        href={`${settings.websiteUrl}/${docsLang}/docs`}
+        href={`${settings.helpUrl}/${docsLang}/docs`}
         target="_blank"
         rel="noopener noreferrer"
         icon={<FileIcon size={20} />}

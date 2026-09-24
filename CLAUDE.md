@@ -11,6 +11,8 @@
 - A one-off correction is not a permanent rule. Ask before turning a single request into doctrine.
 - When writing a rule (here, in a skill, in any doc): keep it minimal, actionable and non-redundant. Shortest phrasing that changes behaviour, no restating what another rule already says, no rationale unless the rule is unusable without it.
 - Permissions: when you change an authorization rule, update BOTH the frontend (`OrgData.getCirclePermissions` / `CircleContext` in `packages/webapp`) and the Hasura YAML (`nhost/metadata/databases/default/tables/public_circle*.yaml`, applied via the `apply-hasura-metadata` skill), and confirm they agree. The `circle_leader` view (representatives, else direct members) is the source of truth for leaders; use the `leaders` relationship rather than re-deriving it.
+- `packages/webapp` is served on port 3032 via `vite preview` (systemd service `rolebase-webapp.service`), a static production build, not the live dev server. After every change to `packages/webapp`, run `npm run build` in that package. The service restart itself needs `sudo systemctl restart rolebase-webapp.service`, which requires a password Claude can't enter — ask the user to run it.
+- `/aide/` is a generated local mirror of the website's `docs`+`guides` content (gitignored, not committed), served on port 3033 by `rolebase-aide.service`, and linked from the webapp's Help menu (`settings.helpUrl`). Regenerate it after editing `website/src/content/docs/` or `website/src/content/guides/` with: `cd website && npm run build && node ../scripts/generate-aide.mjs`. Restarting `rolebase-aide.service` needs `sudo`, which Claude can't enter — ask the user to run it.
 
 ## Tech stack
 

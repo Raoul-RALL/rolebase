@@ -18,6 +18,16 @@ export default {
   // Website url
   websiteUrl: 'https://rolebase.io',
 
+  // Local help mirror (docs+guides), served by rolebase-aide.service.
+  // Falls back to the live website on environments where it isn't running.
+  helpUrl: isLocal
+    ? 'http://localhost:3033/aide'
+    : isStaging
+    ? 'https://rolebase.io'
+    : isSynology
+    ? 'https://rolebase.nafnafnafnaf0.synology.me:3033/aide'
+    : 'https://rolebase.mondomaine.fr:3033/aide',
+
   // Nhost
   nhost: {
     subdomain: isLocal

@@ -1,0 +1,16 @@
+[Unit]
+Description=Rolebase local help mirror (docs+guides, static)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=raoul
+WorkingDirectory=/home/raoul/DevSite/Rolebase
+Environment=PORT=3033
+ExecStart=/home/raoul/.nvm/versions/node/v22.23.2/bin/node scripts/serve-aide.mjs
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
