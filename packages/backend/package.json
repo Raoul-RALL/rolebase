@@ -24,7 +24,7 @@
     "@rolebase/graph": "*",
     "@sentry/node": "^10.38.0",
     "@sentry/profiling-node": "^10.38.0",
-    "@trpc/server": "^11.7.2",
+    "@trpc/server": "^11.19.0",
     "algoliasearch": "^4.14.2",
     "axios": "^1.5.1",
     "date-fns": "^2.29.3",
