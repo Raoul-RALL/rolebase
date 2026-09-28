@@ -32,7 +32,7 @@
     "@fullcalendar/timegrid": "^6.1.5",
     "@hello-pangea/dnd": "^16.2.0",
     "@hookform/resolvers": "^2.8.8",
-    "@nhost/nhost-js": "^4.7.0",
+    "@nhost/nhost-js": "^4.8.0",
     "@rolebase/editor": "*",
     "@rolebase/graph": "*",
     "@sentry/react": "10.38.0",
