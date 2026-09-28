@@ -42,6 +42,7 @@ import {
   Judge,
   Kanban,
   LanguageSquare,
+  Layer,
   Link,
   Link2,
   Link21,
@@ -175,6 +176,7 @@ export const SidebarRightIcon = SidebarRight
 export const ShareIcon = Share
 export const ShortcutsIcon = Command
 export const ShowIcon = Eye
+export const StackIcon = Layer
 export const StopIcon = Stop
 export const SubscriptionIcon = Star
 export const SubscriptionPlanBusiness = Briefcase

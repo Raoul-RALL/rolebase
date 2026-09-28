@@ -1,0 +1,143 @@
+// Technologies listed on the "Tech stack" settings page.
+// Also imported by vite/stackVersions.ts to resolve installed versions at build time.
+
+export type StackSource =
+  // npm package, installed version read from node_modules
+  | 'npm'
+  // Node.js runtime used for the build
+  | 'node'
+  // Hasura version set in nhost/nhost.toml
+  | 'hasura'
+
+export interface StackTechnology {
+  // Key of translations StackPage.categories.* and StackPage.descriptions.*
+  id: string
+  name: string
+  category: string
+  source: StackSource
+  npmPackage?: string
+}
+
+export const stackTechnologies: StackTechnology[] = [
+  {
+    id: 'react',
+    name: 'React',
+    category: 'framework',
+    source: 'npm',
+    npmPackage: 'react',
+  },
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    category: 'language',
+    source: 'npm',
+    npmPackage: 'typescript',
+  },
+  { id: 'node', name: 'Node.js', category: 'runtime', source: 'node' },
+  {
+    id: 'vite',
+    name: 'Vite',
+    category: 'build',
+    source: 'npm',
+    npmPackage: 'vite',
+  },
+  {
+    id: 'chakra',
+    name: 'Chakra UI',
+    category: 'styling',
+    source: 'npm',
+    npmPackage: '@chakra-ui/react',
+  },
+  { id: 'hasura', name: 'Hasura', category: 'api', source: 'hasura' },
+  {
+    id: 'nhost',
+    name: 'Nhost JS',
+    category: 'backend',
+    source: 'npm',
+    npmPackage: '@nhost/nhost-js',
+  },
+  {
+    id: 'apollo',
+    name: 'Apollo Client',
+    category: 'data',
+    source: 'npm',
+    npmPackage: '@apollo/client',
+  },
+  {
+    id: 'graphql',
+    name: 'GraphQL',
+    category: 'data',
+    source: 'npm',
+    npmPackage: 'graphql',
+  },
+  {
+    id: 'trpc',
+    name: 'tRPC',
+    category: 'api',
+    source: 'npm',
+    npmPackage: '@trpc/client',
+  },
+  {
+    id: 'reactRouter',
+    name: 'React Router',
+    category: 'routing',
+    source: 'npm',
+    npmPackage: 'react-router',
+  },
+  {
+    id: 'reactHookForm',
+    name: 'React Hook Form',
+    category: 'forms',
+    source: 'npm',
+    npmPackage: 'react-hook-form',
+  },
+  {
+    id: 'i18next',
+    name: 'i18next',
+    category: 'i18n',
+    source: 'npm',
+    npmPackage: 'i18next',
+  },
+  {
+    id: 'tiptap',
+    name: 'Tiptap',
+    category: 'editor',
+    source: 'npm',
+    npmPackage: '@tiptap/core',
+  },
+  {
+    id: 'yjs',
+    name: 'Yjs',
+    category: 'collab',
+    source: 'npm',
+    npmPackage: 'yjs',
+  },
+  {
+    id: 'd3',
+    name: 'D3',
+    category: 'dataviz',
+    source: 'npm',
+    npmPackage: 'd3',
+  },
+  {
+    id: 'recharts',
+    name: 'Recharts',
+    category: 'dataviz',
+    source: 'npm',
+    npmPackage: 'recharts',
+  },
+  {
+    id: 'dateFns',
+    name: 'date-fns',
+    category: 'dates',
+    source: 'npm',
+    npmPackage: 'date-fns',
+  },
+  {
+    id: 'sentry',
+    name: 'Sentry',
+    category: 'monitoring',
+    source: 'npm',
+    npmPackage: '@sentry/react',
+  },
+]

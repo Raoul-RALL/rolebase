@@ -6,12 +6,14 @@ import { fileURLToPath } from 'url'
 import { defineConfig, PluginOption } from 'vite'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import stackVersions from './vite/stackVersions'
 import umamiAppRoots from './vite/umamiAppRoots'
 
 const plugins: PluginOption[] = [
   svgr({ exportAsDefault: true }),
   react(),
   umamiAppRoots(),
+  stackVersions(),
   // Scope the tsconfig scan to the webapp's own tsconfig. Without `root`,
   // vite-tsconfig-paths crawls the whole workspace and chokes on
   // website/tsconfig.json (its `extends: "astro/tsconfigs/strict"` resolves

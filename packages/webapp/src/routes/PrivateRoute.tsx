@@ -13,6 +13,7 @@ import MemberInvitationPage from '@/member/pages/MemberInvitationPage'
 import Onboarding from '@/onboarding/components/Onboarding'
 import ImportPage from '@/org/pages/ImportPage'
 import OrgsPage from '@/org/pages/OrgsPage'
+import StackPage from '@/stack/pages/StackPage'
 import { useAuth } from '@/user/hooks/useAuth'
 import useSuperAdmin from '@/user/hooks/useSuperAdmin'
 import VerifyEmailModal from '@/user/modals/VerifiyEmailModal'
@@ -85,6 +86,7 @@ export default function PrivateRoute() {
         <Route path="settings" element={<SettingsLayout />}>
           <Route path="apps" element={<AppsPage />} />
           <Route path="api-keys" element={<ApiPage />} />
+          <Route path="stack" element={<StackPage />} />
           <Route path="credentials" element={<CredentialsSettingsPage />} />
           <Route path="notifications" element={<NotificationsSettingsPage />} />
         </Route>

@@ -14,6 +14,7 @@ import {
   ExportIcon,
   MembersIcon,
   NotificationIcon,
+  StackIcon,
   SubscriptionIcon,
   UserInfoIcon,
 } from 'src/icons'
@@ -93,6 +94,11 @@ export default function useSettingsLinks(): SettingsLinksGroup[] {
             to: `${pathBase}/api-keys`,
             icon: ApiIcon,
             label: t('Settings.api'),
+          },
+          isOwner && {
+            to: `${pathBase}/stack`,
+            icon: StackIcon,
+            label: t('Settings.stack'),
           },
         ].filter(truthy),
       },

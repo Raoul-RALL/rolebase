@@ -18,6 +18,7 @@ import useAnalyticsIdentity from '@/org/hooks/useAnalyticsIdentity'
 import useOrgLifecycleTracking from '@/org/hooks/useOrgLifecycleTracking'
 import ExportPage from '@/org/pages/ExportPage'
 import OrgSettingsPage from '@/org/pages/OrgSettingsPage'
+import StackPage from '@/stack/pages/StackPage'
 import TaskPage from '@/task/pages/TaskPage'
 import TasksPage from '@/task/pages/TasksPage'
 import ThreadPage from '@/thread/pages/ThreadPage'
@@ -81,6 +82,7 @@ export default function OrgRouteContent() {
               <Route path="billing" element={<BillingPage />} />
               <Route path="apps" element={<AppsPage />} />
               <Route path="api-keys" element={<ApiPage />} />
+              <Route path="stack" element={<StackPage />} />
               <Route path="export" element={<ExportPage />} />
               <Route path="credentials" element={<CredentialsSettingsPage />} />
               <Route
