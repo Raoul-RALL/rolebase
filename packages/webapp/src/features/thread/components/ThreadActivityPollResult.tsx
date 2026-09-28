@@ -1,4 +1,4 @@
-import { Box, Stack, StackItem, Tooltip, useColorMode } from '@chakra-ui/react'
+import { Box, Stack, Tooltip, useColorMode } from '@chakra-ui/react'
 import { ThreadPollAnswerFragment } from '@gql'
 import { ThreadActivityPollFragment } from '@rolebase/shared/model/thread_activity'
 import React, { memo, useMemo } from 'react'
@@ -48,7 +48,7 @@ function ThreadActivityPollResult({ activity, answers }: Props) {
       {results.map(({ title, points, voters }, index) => {
         const widthRatio = Math.round((points / maxPoints) * 1000) / 10
         return (
-          <StackItem key={index} display="flex">
+          <Box key={index} display="flex">
             <Tooltip
               label={
                 activity.data.anonymous
@@ -81,7 +81,7 @@ function ThreadActivityPollResult({ activity, answers }: Props) {
               {points} {activity.data.pointsPerUser ? 'point' : 'vote'}
               {points > 1 ? 's' : ''}
             </Box>
-          </StackItem>
+          </Box>
         )
       })}
     </Stack>

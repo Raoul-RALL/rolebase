@@ -22,13 +22,13 @@ interface DragNode {
 
 export function useDragNode(graph: Graph | undefined, node: NodeData) {
   const events = graph?.params.events
-  const dragOrigin = useRef<Position>()
+  const dragOrigin = useRef<Position | undefined>(undefined)
   const dragNodes = useRef<DragNode[]>([])
   const dragTargets = useRef<DragNode[]>([])
-  const dragTarget = useRef<DragNode | undefined>()
+  const dragTarget = useRef<DragNode | undefined>(undefined)
   // Edge from the dragged node to the parent it is being pulled away from:
   // hidden for the duration of the drag
-  const dragRootLink = useRef<SVGPathElement | undefined>()
+  const dragRootLink = useRef<SVGPathElement | undefined>(undefined)
 
   // Stable document listeners delegating to the latest handlers
   const latestHandlers = useRef<{
@@ -296,8 +296,7 @@ function getTitleElement(node: NodeData) {
 
 function getLinkElement(node: NodeData) {
   return (document.getElementById(`link-${node.data.id}`) ?? undefined) as
-    | SVGPathElement
-    | undefined
+    SVGPathElement | undefined
 }
 
 function getTargetNodeData(

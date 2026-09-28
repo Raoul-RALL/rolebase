@@ -1,8 +1,8 @@
 diff --git a/node_modules/@fullcalendar/rrule/index.js b/node_modules/@fullcalendar/rrule/index.js
-index d301b06..662b04b 100644
+index 395ab3a..d85f25d 100644
 --- a/node_modules/@fullcalendar/rrule/index.js
 +++ b/node_modules/@fullcalendar/rrule/index.js
-@@ -99,7 +99,7 @@ function analyzeRRuleString(str) {
+@@ -103,7 +103,7 @@ function analyzeRRuleString(str) {
          isTimeSpecified = isTimeSpecified || !result.isTimeUnspecified;
          isTimeZoneSpecified = isTimeZoneSpecified || result.timeZoneOffset !== null;
      }

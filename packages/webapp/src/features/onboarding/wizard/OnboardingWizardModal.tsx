@@ -14,7 +14,7 @@ import StepOrgName from './steps/StepOrgName'
 import StepRole from './steps/StepRole'
 import StepSource from './steps/StepSource'
 
-const stepComponents: Record<OnboardingStep, () => JSX.Element> = {
+const stepComponents: Record<OnboardingStep, () => React.JSX.Element> = {
   orgName: StepOrgName,
   role: StepRole,
   objective: StepObjective,

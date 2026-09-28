@@ -12,7 +12,7 @@ interface Props {
   // Override the header close button handler (otherwise closes the parent modal)
   onClose?: () => void
   // Ref on the scrolling body, to use it as an IntersectionObserver root
-  bodyRef?: React.RefObject<HTMLDivElement>
+  bodyRef?: React.RefObject<HTMLDivElement | null>
   bodyProps?: BoxProps
   children: React.ReactNode
 }

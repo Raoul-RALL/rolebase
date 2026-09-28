@@ -16,7 +16,9 @@ export enum ScrollPosition {
 export type Scrollable = ReturnType<typeof useScrollable>
 
 // Provided by ScrollableLayout so its children can drive the scroll
-export const ScrollableContext = createContext<Scrollable | undefined>(undefined)
+export const ScrollableContext = createContext<Scrollable | undefined>(
+  undefined
+)
 
 export default function useScrollable() {
   // Scroll state
@@ -59,7 +61,9 @@ export default function useScrollable() {
   // call time; without this window, later growth (and the intermediate Middle
   // positions the animation reports) would stop the ResizeObserver from re-pinning.
   const forceBottomRef = useRef(false)
-  const forceBottomTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const forceBottomTimeoutRef = useRef<
+    ReturnType<typeof setTimeout> | undefined
+  >(undefined)
 
   // Scroll all the way to the bottom.
   const scrollToBottom = useCallback((smooth = false) => {
@@ -67,7 +71,8 @@ export default function useScrollable() {
     if (!container) return
     setPosition(ScrollPosition.Bottom)
     forceBottomRef.current = true
-    if (forceBottomTimeoutRef.current) clearTimeout(forceBottomTimeoutRef.current)
+    if (forceBottomTimeoutRef.current)
+      clearTimeout(forceBottomTimeoutRef.current)
     forceBottomTimeoutRef.current = setTimeout(() => {
       forceBottomRef.current = false
     }, 700)

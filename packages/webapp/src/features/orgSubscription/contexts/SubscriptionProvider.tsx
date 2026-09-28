@@ -83,7 +83,9 @@ export default function SubscriptionProvider({ children }: Props) {
   // on the Stripe return: it covers the free/trial path (which reloads the
   // page) and a payment confirmed in another tab. The first observation only
   // records the baseline, so an already-paying org never fires it.
-  const previousStatus = useRef<Subscription_Payment_Status_Enum | null>()
+  const previousStatus = useRef<
+    Subscription_Payment_Status_Enum | null | undefined
+  >(undefined)
   useEffect(() => {
     if (loading) return
     const status = subscription?.status ?? null

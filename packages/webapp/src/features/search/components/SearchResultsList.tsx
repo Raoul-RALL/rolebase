@@ -27,7 +27,7 @@ interface Props {
     otherOptions?: GetPropsCommonOptions
   ) => any
   getItemProps: (options: UseComboboxGetItemPropsOptions<SearchItem>) => any
-  inputRef: RefObject<HTMLInputElement>
+  inputRef: RefObject<HTMLInputElement | null>
 }
 
 const satisfyingWidth = 250

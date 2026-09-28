@@ -77,10 +77,13 @@ export default function useProposalDraft(
   // Initial data (kept to rebuild from scratch on removeLog)
   const initialRef = useRef<OrgDataFragment | null>(null)
   // Working data + apply methods
-  const workingRef = useRef<{
-    data: OrgDataFragment
-    methods: EntitiesApplyMethods
-  }>()
+  const workingRef = useRef<
+    | {
+        data: OrgDataFragment
+        methods: EntitiesApplyMethods
+      }
+    | undefined
+  >(undefined)
 
   const [ready, setReady] = useState(false)
   const [logs, setLogs] = useState<ProposalLog[]>([])
@@ -92,7 +95,7 @@ export default function useProposalDraft(
   // Live indexed view, rebuilt synchronously on every change and kept in a
   // stable ref so edit actions always read the latest data (the memoized
   // `orgData` below only refreshes on the next render, lagging chained edits).
-  const orgDataRef = useRef<OrgData>()
+  const orgDataRef = useRef<OrgData | undefined>(undefined)
   const actingLeaderRef = useRef(actingLeader)
   actingLeaderRef.current = actingLeader
   const indexOrgData = useCallback(() => {
@@ -158,7 +161,10 @@ export default function useProposalDraft(
   const applyLog = useCallback(
     async (display: LogDisplay, changes: EntitiesChanges) => {
       if (!workingRef.current) return
-      await rebuild([...logsRef.current, { id: generateId(), display, changes }])
+      await rebuild([
+        ...logsRef.current,
+        { id: generateId(), display, changes },
+      ])
     },
     [rebuild]
   )

@@ -71,7 +71,7 @@ export default function ProposalGraphEditor({
 
   const boxRef = useRef<HTMLDivElement>(null)
   const boxSize = useElementSize(boxRef)
-  const graphRef = useRef<CirclesGraphInstance>()
+  const graphRef = useRef<CirclesGraphInstance | undefined>(undefined)
 
   // Selected circle (local, no URL navigation in the editor). Open on the
   // thread's circle, the one the proposal concerns.
@@ -226,7 +226,11 @@ export default function ProposalGraphEditor({
                   selectedCircleId={selectedCircleId}
                 />
               )}
-              <GraphShortcutsModalButton position="absolute" top={2} right={2} />
+              <GraphShortcutsModalButton
+                position="absolute"
+                top={2}
+                right={2}
+              />
               {contextMenu}
             </Box>
 

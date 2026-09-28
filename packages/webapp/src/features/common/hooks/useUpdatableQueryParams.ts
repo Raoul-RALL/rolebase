@@ -12,7 +12,7 @@ export default function useUpdatableQueryParams<
 
   // We use a timeout to batch changes
   const timeoutRef = useRef<number>(0)
-  const pendingParams = useRef<Params | undefined>()
+  const pendingParams = useRef<Params | undefined>(undefined)
 
   // Update params in URL
   const applyParams = useCallback(() => {

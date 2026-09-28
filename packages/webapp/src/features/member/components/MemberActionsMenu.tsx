@@ -46,7 +46,7 @@ export default function MemberActionsMenu({
   // A single modal at a time. The ref is read while the menu closes, before
   // the state update is applied.
   const [modal, setModal] = useState<ModalKind | undefined>()
-  const modalRef = useRef<ModalKind | undefined>()
+  const modalRef = useRef<ModalKind | undefined>(undefined)
   const openModal = (kind: ModalKind) => {
     modalRef.current = kind
     setModal(kind)

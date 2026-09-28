@@ -9,7 +9,7 @@ import { RefObject, useEffect } from 'react'
 //   pinch-zoom through gesture events and ignores `user-scalable=no`).
 // Registered as native non-passive listeners so we can preventDefault and
 // block the browser's native page zoom (React's onWheel/onTouch are passive).
-export function useOpenOrgChartOnZoom(ref: RefObject<HTMLElement>) {
+export function useOpenOrgChartOnZoom(ref: RefObject<HTMLElement | null>) {
   const navigateOrg = useNavigateOrg()
 
   useEffect(() => {

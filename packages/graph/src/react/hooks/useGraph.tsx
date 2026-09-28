@@ -55,7 +55,7 @@ export default function useGraph<Data, TGraph extends Graph<Data>>({
 
   // Viz
   const [graph, setGraph] = useState<TGraph>()
-  const graphRef = useRef<TGraph>()
+  const graphRef = useRef<TGraph | undefined>(undefined)
 
   // Instanciate graph
   useEffect(() => {

@@ -1,9 +1,5 @@
-import {
-  Box,
-  BoxProps,
-  keyframes,
-  usePrefersReducedMotion,
-} from '@chakra-ui/react'
+import { Box, BoxProps, usePrefersReducedMotion } from '@chakra-ui/react'
+import { keyframes } from '@emotion/react'
 import React from 'react'
 
 interface Props extends BoxProps {

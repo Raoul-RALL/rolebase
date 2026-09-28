@@ -99,6 +99,16 @@ function run(job: StackUpdateJob, cwd: string, [command, ...args]: string[]) {
   })
 }
 
+// Peer dependencies included: internal packages declare React as a peer, and
+// npm refuses to install a new major that they don't accept
+function getDependencySections(manifest: Record<string, any>) {
+  return [
+    manifest.dependencies,
+    manifest.devDependencies,
+    manifest.peerDependencies,
+  ]
+}
+
 function getManifestPaths(): string[] {
   return [
     path.join(ROOT, 'package.json'),
@@ -122,7 +132,7 @@ function findDeclaredPackages(manifestPaths: string[], patterns: string[]) {
   const names = new Set<string>()
   for (const file of manifestPaths) {
     const manifest = JSON.parse(fs.readFileSync(file, 'utf8'))
-    for (const deps of [manifest.dependencies, manifest.devDependencies]) {
+    for (const deps of getDependencySections(manifest)) {
       for (const name of Object.keys(deps ?? {})) {
         if (matchesPackage(name, patterns)) names.add(name)
       }
@@ -141,7 +151,7 @@ function bumpManifests(
   for (const file of manifestPaths) {
     const manifest = JSON.parse(fs.readFileSync(file, 'utf8'))
     let changed = false
-    for (const deps of [manifest.dependencies, manifest.devDependencies]) {
+    for (const deps of getDependencySections(manifest)) {
       for (const name of Object.keys(deps ?? {})) {
         if (!versions[name]) continue
         const isExact = /^\d/.test(deps[name])

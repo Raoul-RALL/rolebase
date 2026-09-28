@@ -33,5 +33,10 @@
     "patch-package": "^8.0.0",
     "prettier": "^3.0.3",
     "turbo": "^2.0.6"
+  },
+  "overrides": {
+    "@emoji-mart/react": {
+      "react": "^19.3.0"
+    }
   }
 }

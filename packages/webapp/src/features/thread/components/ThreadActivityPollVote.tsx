@@ -1,6 +1,6 @@
 import NumberInput from '@/common/atoms/NumberInput'
 import useDateLocale from '@/common/hooks/useDateLocale'
-import { Box, Button, Stack, StackItem, Text } from '@chakra-ui/react'
+import { Box, Button, Stack, Text } from '@chakra-ui/react'
 import { ThreadPollAnswerFragment } from '@gql'
 import { ThreadActivityPollFragment } from '@rolebase/shared/model/thread_activity'
 import { format } from 'date-fns'
@@ -173,7 +173,7 @@ function ThreadActivityPollVote({ activity, answers, onVote }: Props) {
           const points = choicesFields[index]?.points || 0
           const checked = !!points
           return (
-            <StackItem key={index} display="flex">
+            <Box key={index} display="flex">
               <Button
                 flex="1"
                 justifyContent="space-between"
@@ -199,7 +199,7 @@ function ThreadActivityPollVote({ activity, answers, onVote }: Props) {
                   />
                 ) : null}
               </Box>
-            </StackItem>
+            </Box>
           )
         })}
       </Stack>
@@ -250,8 +250,8 @@ function ThreadActivityPollVote({ activity, answers, onVote }: Props) {
                 }
               )
             : data.endWhenAllVoted
-            ? t('ThreadActivityPollVote.revealAllVoted')
-            : t('ThreadActivityPollVote.revealLater')}
+              ? t('ThreadActivityPollVote.revealAllVoted')
+              : t('ThreadActivityPollVote.revealLater')}
         </Text>
       )}
     </>

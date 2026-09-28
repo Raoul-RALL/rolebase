@@ -5,7 +5,9 @@ interface Size {
   height: number
 }
 
-export function useElementSize(ref: RefObject<HTMLElement>): Size | undefined {
+export function useElementSize(
+  ref: RefObject<HTMLElement | null>
+): Size | undefined {
   const [size, setSize] = useState<Size | undefined>()
 
   useEffect(() => {

@@ -7,7 +7,7 @@ export function useIdleCallback<Args extends any[]>(
   deps: DependencyList,
   timeout = 300
 ) {
-  const idleRef = useRef<number | undefined>()
+  const idleRef = useRef<number | undefined>(undefined)
 
   return useCallback((...args: Args) => {
     // Cancel previous callback
