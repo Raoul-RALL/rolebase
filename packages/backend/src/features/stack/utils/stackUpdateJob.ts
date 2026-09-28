@@ -1,3 +1,4 @@
+import { compareVersions } from '@rolebase/shared/helpers/compareVersions'
 import { fetchLatestNpmVersion } from '@rolebase/shared/helpers/fetchLatestVersion'
 import {
   StackTechnology,
@@ -18,6 +19,7 @@ const ROOT = path.resolve(__dirname, '../../../../../..')
 const WORKSPACES_DIR = path.join(ROOT, 'packages')
 const BIN_DIR = path.dirname(process.execPath)
 const MAX_LOG_LENGTH = 200000
+const MIN_NODE_VERSION = '22.12.0'
 
 // Workspaces whose dependencies are loaded by the running backend
 const BACKEND_WORKSPACES = ['backend', 'shared', 'editor', 'emails', 'graph']
@@ -53,6 +55,13 @@ export function startStackUpdateJob(technologyId: string): StackUpdateJob {
     throw new TRPCError({
       code: 'CONFLICT',
       message: 'An update is already running',
+    })
+  }
+  // Vite 8 and Vitest 5, run by the checks, need a recent Node.js
+  if (compareVersions(process.versions.node, MIN_NODE_VERSION) < 0) {
+    throw new TRPCError({
+      code: 'PRECONDITION_FAILED',
+      message: `Node.js ${process.versions.node} is too old to run the checks (${MIN_NODE_VERSION} or later required)`,
     })
   }
   if (!fs.existsSync(path.join(ROOT, 'package-lock.json'))) {
