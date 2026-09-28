@@ -19,6 +19,9 @@ const WORKSPACES_DIR = path.join(ROOT, 'packages')
 const BIN_DIR = path.dirname(process.execPath)
 const MAX_LOG_LENGTH = 200000
 
+// Workspaces whose dependencies are loaded by the running backend
+const BACKEND_WORKSPACES = ['backend', 'shared', 'editor', 'emails', 'graph']
+
 const verifySteps: { label: string; workspace: string; args: string[] }[] = [
   ...['shared', 'graph', 'editor', 'emails', 'backend', 'webapp'].map(
     (workspace) => ({
@@ -128,11 +131,13 @@ function findDeclaredPackages(manifestPaths: string[], patterns: string[]) {
   return [...names]
 }
 
-// Sets the new version ranges, keeping exact pins exact
+// Sets the new version ranges, keeping exact pins exact.
+// Returns the manifests changed.
 function bumpManifests(
   manifestPaths: string[],
   versions: Record<string, string>
-) {
+): string[] {
+  const changedPaths: string[] = []
   for (const file of manifestPaths) {
     const manifest = JSON.parse(fs.readFileSync(file, 'utf8'))
     let changed = false
@@ -144,9 +149,19 @@ function bumpManifests(
         changed = true
       }
     }
-    if (changed)
-      fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n')
+    if (!changed) continue
+    fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n')
+    changedPaths.push(file)
   }
+  return changedPaths
+}
+
+function isBackendManifest(file: string) {
+  const workspace = path.basename(path.dirname(file))
+  return (
+    file === path.join(ROOT, 'package.json') ||
+    BACKEND_WORKSPACES.includes(workspace)
+  )
 }
 
 async function runJob(job: StackUpdateJob, technology: StackTechnology) {
@@ -171,7 +186,7 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
     job.targets = names.map((name) => `${name}@${versions[name]}`)
     appendLog(job, `Targets: ${job.targets.join(', ')}\n`)
 
-    bumpManifests(manifestPaths, versions)
+    const changedPaths = bumpManifests(manifestPaths, versions)
     job.step = 'Install'
     await run(job, ROOT, ['npm', 'install', '--no-audit', '--no-fund'])
 
@@ -181,6 +196,7 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
       await run(job, path.join(WORKSPACES_DIR, step.workspace), step.args)
     }
 
+    job.needsBackendRestart = changedPaths.some(isBackendManifest)
     job.status = 'success'
   } catch (error) {
     appendLog(job, `\n\n!!! ${error}\nRestoring previous versions...\n`)

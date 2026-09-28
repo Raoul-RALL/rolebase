@@ -76,6 +76,11 @@ export default function StackUpdateLog() {
               <AlertIcon />
               <VStack align="start" spacing={2}>
                 <Text>{t('StackPage.job.successInfo')}</Text>
+                {job.needsBackendRestart && (
+                  <Text fontWeight="medium">
+                    {t('StackPage.job.restartBackend')}
+                  </Text>
+                )}
                 <Button size="sm" onClick={handleReload}>
                   {t('StackPage.job.reload')}
                 </Button>

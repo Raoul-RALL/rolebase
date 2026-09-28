@@ -177,5 +177,7 @@ export interface StackUpdateJob {
   // Step running ("Install", "Types webapp"...), and the one that failed
   step?: string
   failedStep?: string
+  // Backend dependencies changed: restart needed to run them
+  needsBackendRestart?: boolean
   log: string
 }
