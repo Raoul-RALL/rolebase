@@ -183,6 +183,44 @@ function isBackendManifest(file: string) {
   )
 }
 
+// Version installed for a package, resolved from a workspace like Node does
+function readInstalledVersion(fromDir: string, name: string) {
+  for (let dir = fromDir; ; dir = path.dirname(dir)) {
+    const file = path.join(dir, 'node_modules', name, 'package.json')
+    if (fs.existsSync(file))
+      return JSON.parse(fs.readFileSync(file, 'utf8')).version
+    if (dir === ROOT || dir === path.dirname(dir)) return undefined
+  }
+}
+
+// npm can keep a previously installed copy flagged "invalid" instead of
+// installing the new version: checks would then pass on the old one
+function checkInstalledVersions(
+  manifestPaths: string[],
+  versions: Record<string, string>
+) {
+  const mismatches: string[] = []
+  for (const file of manifestPaths) {
+    const manifest = JSON.parse(fs.readFileSync(file, 'utf8'))
+    for (const deps of getDependencySections(manifest)) {
+      for (const name of Object.keys(deps ?? {})) {
+        if (!versions[name]) continue
+        const installed = readInstalledVersion(path.dirname(file), name)
+        if (installed !== versions[name]) {
+          mismatches.push(
+            `${name} in ${path.relative(ROOT, path.dirname(file)) || '.'}: ${installed} instead of ${versions[name]}`
+          )
+        }
+      }
+    }
+  }
+  if (mismatches.length) {
+    throw new Error(
+      `Not installed at the target version: ${mismatches.join(', ')}`
+    )
+  }
+}
+
 async function runJob(job: StackUpdateJob, technology: StackTechnology) {
   const manifestPaths = getManifestPaths()
   const backupPaths = [...manifestPaths, path.join(ROOT, 'package-lock.json')]
@@ -208,6 +246,7 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
     const changedPaths = bumpManifests(manifestPaths, versions)
     job.step = 'Install'
     await run(job, ROOT, ['npm', 'install', '--no-audit', '--no-fund'])
+    checkInstalledVersions(changedPaths, versions)
 
     for (const step of verifySteps) {
       job.step = step.label

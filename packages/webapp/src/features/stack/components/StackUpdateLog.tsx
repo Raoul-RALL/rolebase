@@ -23,7 +23,7 @@ const statusColors = {
 // Progress and output of the last update job
 export default function StackUpdateLog() {
   const { t } = useTranslation()
-  const { job, error } = useStackUpdateContext()
+  const { job, error, unreachable } = useStackUpdateContext()
   const logRef = useRef<HTMLPreElement>(null)
 
   // Follow the end of the log
@@ -33,7 +33,7 @@ export default function StackUpdateLog() {
 
   const handleReload = () => window.location.reload()
 
-  if (!job && !error) return null
+  if (!job && !error && !unreachable) return null
 
   const technology = stackTechnologies.find(
     (tech) => tech.id === job?.technologyId
@@ -41,6 +41,13 @@ export default function StackUpdateLog() {
 
   return (
     <VStack spacing={3} align="stretch">
+      {unreachable && (
+        <Alert status="warning">
+          <AlertIcon />
+          {t('StackPage.backendUnreachable')}
+        </Alert>
+      )}
+
       {error && (
         <Alert status="error">
           <AlertIcon />

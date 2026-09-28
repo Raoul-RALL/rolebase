@@ -1051,6 +1051,7 @@
     "upToDate": "Up to date",
     "update": "Update",
     "updating": "Updating…",
+    "backendUnreachable": "The backend doesn't respond (restarting?). Retrying automatically…",
     "job": {
       "title": "{{name}} update",
       "status": {

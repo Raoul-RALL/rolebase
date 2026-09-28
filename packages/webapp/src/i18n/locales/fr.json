@@ -1084,6 +1084,7 @@
     "upToDate": "À jour",
     "update": "Mettre à jour",
     "updating": "En cours…",
+    "backendUnreachable": "Le backend ne répond pas (redémarrage en cours ?). Nouvelle tentative automatique…",
     "job": {
       "title": "Mise à jour de {{name}}",
       "status": {
