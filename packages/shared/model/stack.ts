@@ -48,7 +48,17 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'build',
     source: 'npm',
     npmPackage: 'vite',
-    updatePackages: ['vite', '@vitejs/plugin-react'],
+    // Plugins, Vitest and Storybook declare Vite as a peer dependency
+    updatePackages: [
+      'vite',
+      '@vitejs/plugin-react',
+      'vite-plugin-svgr',
+      'vite-tsconfig-paths',
+      'vitest',
+      'storybook',
+      '@storybook/*',
+      'eslint-plugin-storybook',
+    ],
   },
   {
     id: 'chakra',

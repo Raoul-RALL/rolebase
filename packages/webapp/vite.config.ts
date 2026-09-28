@@ -10,7 +10,8 @@ import stackVersions from './vite/stackVersions'
 import umamiAppRoots from './vite/umamiAppRoots'
 
 const plugins: PluginOption[] = [
-  svgr({ exportAsDefault: true }),
+  // SVG imports are React components (default export), as before svgr 4
+  svgr({ include: '**/*.svg', svgrOptions: { exportType: 'default' } }),
   react(),
   umamiAppRoots(),
   stackVersions(),
@@ -62,8 +63,7 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    minify: 'esbuild',
-    rollupOptions: {
+    rolldownOptions: {
       // Multiple entry points: https://stackoverflow.com/questions/70522494/multiple-entry-points-in-vite
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
