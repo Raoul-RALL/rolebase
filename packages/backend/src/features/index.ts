@@ -11,6 +11,7 @@ import orgSubscription from './orgSubscription'
 import participants from './participants'
 import proposal from './proposal'
 import search from './search'
+import stack from './stack'
 import superAdmin from './superAdmin'
 import trigger from './trigger'
 import user from './user'
@@ -27,6 +28,7 @@ export const trpcRouter = router({
   participants,
   proposal,
   search,
+  stack,
   superAdmin,
   trigger,
   user,

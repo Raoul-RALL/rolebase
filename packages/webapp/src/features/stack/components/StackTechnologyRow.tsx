@@ -1,8 +1,9 @@
 import { Badge, Spinner, Td, Text, Tr } from '@chakra-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StackTechnology } from '../stackTechnologies'
-import { compareVersions } from '../utils/compareVersions'
+import { StackTechnology } from '@rolebase/shared/model/stack'
+import { compareVersions } from '@rolebase/shared/helpers/compareVersions'
+import StackUpdateButton from './StackUpdateButton'
 
 interface Props {
   technology: StackTechnology
@@ -36,6 +37,9 @@ export default function StackTechnologyRow({
         ) : (
           <Badge colorScheme="green">{t('StackPage.upToDate')}</Badge>
         )}
+      </Td>
+      <Td>
+        <StackUpdateButton technology={technology} isOutdated={isOutdated} />
       </Td>
       <Td whiteSpace="normal">
         <Text fontSize="sm" color="gray.500" _dark={{ color: 'gray.400' }}>

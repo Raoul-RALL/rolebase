@@ -1082,13 +1082,28 @@
     "description": "Vue d'ensemble des technologies utilisées dans Rolebase. Les versions locales sont celles de la dernière compilation de l'application, comparées à la dernière version stable publiée.",
     "outdated": "À mettre à jour",
     "upToDate": "À jour",
+    "update": "Mettre à jour",
+    "updating": "En cours…",
+    "job": {
+      "title": "Mise à jour de {{name}}",
+      "status": {
+        "running": "En cours",
+        "success": "Réussie",
+        "failed": "Échouée"
+      },
+      "successInfo": "Nouvelles versions installées, vérifiées (types, tests, build) et webapp recompilé. Rechargez la page pour les voir. Pensez à commiter les modifications et à redémarrer le backend (sudo systemctl restart rolebase-backend.service).",
+      "failedInfo": "La vérification a échoué : les versions précédentes ont été restaurées. Le détail est dans le journal ci-dessous.",
+      "reload": "Recharger la page",
+      "logLabel": "Journal de la mise à jour"
+    },
     "columns": {
       "category": "Catégorie",
       "technology": "Technologie",
       "localVersion": "Version locale",
       "latestVersion": "Dernière version stable",
       "status": "Statut",
-      "description": "Description"
+      "description": "Description",
+      "action": "Action"
     },
     "categories": {
       "framework": "Framework",

@@ -15,8 +15,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import stackVersions from 'virtual:stack-versions'
 import StackTechnologyRow from '../components/StackTechnologyRow'
+import StackUpdateLog from '../components/StackUpdateLog'
+import StackUpdateProvider from '../contexts/StackUpdateProvider'
 import useLatestVersions from '../hooks/useLatestVersions'
-import { stackTechnologies } from '../stackTechnologies'
+import { stackTechnologies } from '@rolebase/shared/model/stack'
 
 export default function StackPage() {
   const { t } = useTranslation()
@@ -39,7 +41,7 @@ export default function StackPage() {
         )}
 
         {isOwner && (
-          <>
+          <StackUpdateProvider>
             <Text>{t('StackPage.description')}</Text>
 
             <TableContainer borderWidth="1px" borderRadius="xl">
@@ -51,6 +53,7 @@ export default function StackPage() {
                     <Th>{t('StackPage.columns.localVersion')}</Th>
                     <Th>{t('StackPage.columns.latestVersion')}</Th>
                     <Th>{t('StackPage.columns.status')}</Th>
+                    <Th>{t('StackPage.columns.action')}</Th>
                     <Th>{t('StackPage.columns.description')}</Th>
                   </Tr>
                 </Thead>
@@ -66,7 +69,9 @@ export default function StackPage() {
                 </Tbody>
               </Table>
             </TableContainer>
-          </>
+
+            <StackUpdateLog />
+          </StackUpdateProvider>
         )}
       </VStack>
     </>

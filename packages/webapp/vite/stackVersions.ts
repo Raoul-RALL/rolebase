@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { PluginOption } from 'vite'
-import { stackTechnologies } from '../src/features/stack/stackTechnologies'
+import { stackTechnologies } from '../../shared/model/stack'
 
 const VIRTUAL_ID = 'virtual:stack-versions'
 const RESOLVED_ID = '\0' + VIRTUAL_ID

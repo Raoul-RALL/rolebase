@@ -1,5 +1,6 @@
 // Technologies listed on the "Tech stack" settings page.
-// Also imported by vite/stackVersions.ts to resolve installed versions at build time.
+// Used by the webapp (display), its vite config (installed versions at build
+// time) and the backend (update button).
 
 export type StackSource =
   // npm package, installed version read from node_modules
@@ -15,7 +16,12 @@ export interface StackTechnology {
   name: string
   category: string
   source: StackSource
+  // Package whose installed version is displayed
   npmPackage?: string
+  // Packages bumped together to their latest stable version by the update
+  // button, in every workspace declaring them. A trailing "*" matches a scope.
+  // No update button without it (infrastructure: Node.js, Hasura).
+  updatePackages?: string[]
 }
 
 export const stackTechnologies: StackTechnology[] = [
@@ -25,6 +31,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'framework',
     source: 'npm',
     npmPackage: 'react',
+    updatePackages: ['react', 'react-dom', '@types/react', '@types/react-dom'],
   },
   {
     id: 'typescript',
@@ -32,6 +39,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'language',
     source: 'npm',
     npmPackage: 'typescript',
+    updatePackages: ['typescript'],
   },
   { id: 'node', name: 'Node.js', category: 'runtime', source: 'node' },
   {
@@ -40,6 +48,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'build',
     source: 'npm',
     npmPackage: 'vite',
+    updatePackages: ['vite', '@vitejs/plugin-react'],
   },
   {
     id: 'chakra',
@@ -47,6 +56,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'styling',
     source: 'npm',
     npmPackage: '@chakra-ui/react',
+    updatePackages: ['@chakra-ui/react'],
   },
   { id: 'hasura', name: 'Hasura', category: 'api', source: 'hasura' },
   {
@@ -55,6 +65,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'backend',
     source: 'npm',
     npmPackage: '@nhost/nhost-js',
+    updatePackages: ['@nhost/nhost-js'],
   },
   {
     id: 'apollo',
@@ -62,6 +73,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'data',
     source: 'npm',
     npmPackage: '@apollo/client',
+    updatePackages: ['@apollo/client'],
   },
   {
     id: 'graphql',
@@ -69,6 +81,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'data',
     source: 'npm',
     npmPackage: 'graphql',
+    updatePackages: ['graphql'],
   },
   {
     id: 'trpc',
@@ -76,6 +89,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'api',
     source: 'npm',
     npmPackage: '@trpc/client',
+    updatePackages: ['@trpc/client', '@trpc/server'],
   },
   {
     id: 'reactRouter',
@@ -83,6 +97,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'routing',
     source: 'npm',
     npmPackage: 'react-router',
+    updatePackages: ['react-router'],
   },
   {
     id: 'reactHookForm',
@@ -90,6 +105,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'forms',
     source: 'npm',
     npmPackage: 'react-hook-form',
+    updatePackages: ['react-hook-form'],
   },
   {
     id: 'i18next',
@@ -97,6 +113,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'i18n',
     source: 'npm',
     npmPackage: 'i18next',
+    updatePackages: ['i18next', 'react-i18next'],
   },
   {
     id: 'tiptap',
@@ -104,6 +121,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'editor',
     source: 'npm',
     npmPackage: '@tiptap/core',
+    updatePackages: ['@tiptap/*'],
   },
   {
     id: 'yjs',
@@ -111,6 +129,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'collab',
     source: 'npm',
     npmPackage: 'yjs',
+    updatePackages: ['yjs'],
   },
   {
     id: 'd3',
@@ -118,6 +137,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'dataviz',
     source: 'npm',
     npmPackage: 'd3',
+    updatePackages: ['d3', '@types/d3'],
   },
   {
     id: 'recharts',
@@ -125,6 +145,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'dataviz',
     source: 'npm',
     npmPackage: 'recharts',
+    updatePackages: ['recharts'],
   },
   {
     id: 'dateFns',
@@ -132,6 +153,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'dates',
     source: 'npm',
     npmPackage: 'date-fns',
+    updatePackages: ['date-fns', 'date-fns-tz'],
   },
   {
     id: 'sentry',
@@ -139,5 +161,18 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'monitoring',
     source: 'npm',
     npmPackage: '@sentry/react',
+    updatePackages: ['@sentry/react', '@sentry/node', '@sentry/profiling-node'],
   },
 ]
+
+export type StackUpdateStatus = 'running' | 'success' | 'failed'
+
+export interface StackUpdateJob {
+  technologyId: string
+  status: StackUpdateStatus
+  startedAt: string
+  endedAt?: string
+  // Package versions installed, e.g. "react@19.3.0"
+  targets: string[]
+  log: string
+}

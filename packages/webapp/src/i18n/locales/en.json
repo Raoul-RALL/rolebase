@@ -1049,13 +1049,28 @@
     "description": "Overview of the technologies used in Rolebase. Local versions are those of the latest build of the app, compared to the latest stable version published.",
     "outdated": "Update available",
     "upToDate": "Up to date",
+    "update": "Update",
+    "updating": "Updating…",
+    "job": {
+      "title": "{{name}} update",
+      "status": {
+        "running": "Running",
+        "success": "Succeeded",
+        "failed": "Failed"
+      },
+      "successInfo": "New versions installed, checked (types, tests, build) and webapp rebuilt. Reload the page to see them. Remember to commit the changes and restart the backend (sudo systemctl restart rolebase-backend.service).",
+      "failedInfo": "Checks failed: previous versions have been restored. Details are in the log below.",
+      "reload": "Reload page",
+      "logLabel": "Update log"
+    },
     "columns": {
       "category": "Category",
       "technology": "Technology",
       "localVersion": "Local version",
       "latestVersion": "Latest stable version",
       "status": "Status",
-      "description": "Description"
+      "description": "Description",
+      "action": "Action"
     },
     "categories": {
       "framework": "Framework",
