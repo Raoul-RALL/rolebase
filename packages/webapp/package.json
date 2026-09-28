@@ -44,7 +44,7 @@
     "algoliasearch": "^4.14.2",
     "crisp-sdk-web": "^1.0.18",
     "crypto-hash": "^2.0.1",
-    "d3": "^7.8.5",
+    "d3": "^7.9.0",
     "d3-hierarchy": "^3.1.2",
     "date-fns": "^2.28.0",
     "date-fns-tz": "^2.0.1",

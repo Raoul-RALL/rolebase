@@ -1091,8 +1091,9 @@
         "success": "Réussie",
         "failed": "Échouée"
       },
+      "step": "Étape en cours : {{step}}",
       "successInfo": "Nouvelles versions installées, vérifiées (types, tests, build) et webapp recompilé. Rechargez la page pour les voir. Pensez à commiter les modifications et à redémarrer le backend (sudo systemctl restart rolebase-backend.service).",
-      "failedInfo": "La vérification a échoué : les versions précédentes ont été restaurées. Le détail est dans le journal ci-dessous.",
+      "failedInfo": "La vérification a échoué à l'étape « {{step}} » : les versions précédentes ont été restaurées. Le détail est dans le journal ci-dessous.",
       "reload": "Recharger la page",
       "logLabel": "Journal de la mise à jour"
     },

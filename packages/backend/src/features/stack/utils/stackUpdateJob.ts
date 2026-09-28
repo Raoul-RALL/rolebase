@@ -17,7 +17,7 @@ import path from 'path'
 const ROOT = path.resolve(__dirname, '../../../../../..')
 const WORKSPACES_DIR = path.join(ROOT, 'packages')
 const BIN_DIR = path.dirname(process.execPath)
-const MAX_LOG_LENGTH = 30000
+const MAX_LOG_LENGTH = 200000
 
 const verifySteps: { label: string; workspace: string; args: string[] }[] = [
   ...['shared', 'graph', 'editor', 'emails', 'backend', 'webapp'].map(
@@ -172,9 +172,11 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
     appendLog(job, `Targets: ${job.targets.join(', ')}\n`)
 
     bumpManifests(manifestPaths, versions)
+    job.step = 'Install'
     await run(job, ROOT, ['npm', 'install', '--no-audit', '--no-fund'])
 
     for (const step of verifySteps) {
+      job.step = step.label
       appendLog(job, `\n=== ${step.label} ===`)
       await run(job, path.join(WORKSPACES_DIR, step.workspace), step.args)
     }
@@ -182,6 +184,8 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
     job.status = 'success'
   } catch (error) {
     appendLog(job, `\n\n!!! ${error}\nRestoring previous versions...\n`)
+    job.failedStep = job.step
+    job.step = 'Restore'
     for (const [file, content] of backups) fs.writeFileSync(file, content)
     try {
       await run(job, ROOT, ['npm', 'install', '--no-audit', '--no-fund'])
@@ -195,5 +199,6 @@ async function runJob(job: StackUpdateJob, technology: StackTechnology) {
     }
     job.status = 'failed'
   }
+  job.step = undefined
   job.endedAt = new Date().toISOString()
 }

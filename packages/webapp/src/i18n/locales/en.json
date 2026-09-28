@@ -1058,8 +1058,9 @@
         "success": "Succeeded",
         "failed": "Failed"
       },
+      "step": "Current step: {{step}}",
       "successInfo": "New versions installed, checked (types, tests, build) and webapp rebuilt. Reload the page to see them. Remember to commit the changes and restart the backend (sudo systemctl restart rolebase-backend.service).",
-      "failedInfo": "Checks failed: previous versions have been restored. Details are in the log below.",
+      "failedInfo": "Checks failed at step \"{{step}}\": previous versions have been restored. Details are in the log below.",
       "reload": "Reload page",
       "logLabel": "Update log"
     },

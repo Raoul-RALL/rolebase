@@ -174,5 +174,8 @@ export interface StackUpdateJob {
   endedAt?: string
   // Package versions installed, e.g. "react@19.3.0"
   targets: string[]
+  // Step running ("Install", "Types webapp"...), and the one that failed
+  step?: string
+  failedStep?: string
   log: string
 }

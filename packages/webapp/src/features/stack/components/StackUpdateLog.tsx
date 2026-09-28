@@ -59,6 +59,12 @@ export default function StackUpdateLog() {
             </Badge>
           </HStack>
 
+          {job.step && (
+            <Text fontSize="sm">
+              {t('StackPage.job.step', { step: job.step })}
+            </Text>
+          )}
+
           {job.targets.length > 0 && (
             <Text fontSize="sm" fontFamily="mono">
               {job.targets.join(', ')}
@@ -80,7 +86,7 @@ export default function StackUpdateLog() {
           {job.status === 'failed' && (
             <Alert status="error">
               <AlertIcon />
-              {t('StackPage.job.failedInfo')}
+              {t('StackPage.job.failedInfo', { step: job.failedStep })}
             </Alert>
           )}
 
