@@ -1,4 +1,4 @@
-import i18next from 'i18next'
+import i18next, { TOptions } from 'i18next'
 import en from './locales/en.json'
 import fr from './locales/fr.json'
 
@@ -12,14 +12,6 @@ export const resources = {
   },
 }
 
-// Full typing
-// https://www.i18next.com/overview/typescript#custom-type-options
-declare module 'i18next' {
-  interface CustomTypeOptions {
-    resources: (typeof resources)['fr']
-  }
-}
-
 i18next.init({
   lng: defaultLang,
   resources,
@@ -28,5 +20,11 @@ i18next.init({
   },
 })
 
-export default i18next
+// Keys are not type-checked: CustomTypeOptions is global, and the webapp
+// declares its own resources while compiling this file for tRPC types
+type I18n = Omit<typeof i18next, 't'> & {
+  t(key: string, options?: TOptions): string
+}
+
+export default i18next as I18n
 export const locales = resources
