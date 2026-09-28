@@ -16,10 +16,10 @@ export default function useAddCircleLink() {
     const orgData = getOrgData()
     const parentCircle = orgData?.getCircle(parentId)
     const invitedCircle = orgData?.getCircle(circleId)
-    const { data, errors } = await createCircleLink({
+    const { data, error } = await createCircleLink({
       variables: { parentId, circleId, orgId: parentCircle?.orgId! },
     })
-    if (errors?.length) throw errors[0]
+    if (error) throw error
     const circleLink = data?.insert_circle_link_one!
     createLog({
       display: {

@@ -11,10 +11,10 @@ export default function useRemoveCircleMember() {
 
   return useCallback(async (circleId: string, memberId: string) => {
     const archivedAt = new Date().toISOString()
-    const { data, errors } = await archiveCircleMember({
+    const { data, error } = await archiveCircleMember({
       variables: { memberId, circleId, archivedAt },
     })
-    if (errors?.length) throw errors[0]
+    if (error) throw error
     const circleMember = data?.update_circle_member?.returning[0]!
 
     // Log change

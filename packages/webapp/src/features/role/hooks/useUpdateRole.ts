@@ -16,11 +16,11 @@ export default function useUpdateRole() {
       // A row the Hasura filter rejects comes back as null without an error, so
       // check the result: logging an update that never happened would put a
       // phantom entry in the activity feed.
-      const { data, errors } = await updateRole({
+      const { data, error } = await updateRole({
         variables: { id: role.id, values },
       })
-      if (errors || !data?.update_role_by_pk) {
-        throw errors?.[0] ?? new Error('Unauthorized')
+      if (error || !data?.update_role_by_pk) {
+        throw error ?? new Error('Unauthorized')
       }
 
       // Log change (diff prev/new)

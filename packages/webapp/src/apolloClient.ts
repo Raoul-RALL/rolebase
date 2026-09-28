@@ -100,12 +100,14 @@ export const createApolloClient = (headers?: Record<string, string>) => {
   return new ApolloClient({
     link,
     cache: new InMemoryCache(),
-    connectToDevTools: process.env.NODE_ENV === 'development',
-    // defaultOptions: {
-    //   watchQuery: {
-    //     fetchPolicy: 'cache-and-network',
-    //   },
-    // },
+    devtools: { enabled: process.env.NODE_ENV === 'development' },
+    defaultOptions: {
+      watchQuery: {
+        // Apollo Client 3 default: refetches don't set `loading` back to true
+        notifyOnNetworkStatusChange: false,
+        // fetchPolicy: 'cache-and-network',
+      },
+    },
   })
 }
 

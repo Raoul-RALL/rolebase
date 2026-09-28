@@ -16,13 +16,13 @@ export default function useCreateMeeting() {
       if (!currentMember) return
 
       // Create meeting
-      const { data, errors } = await createMeeting({
+      const { data, error } = await createMeeting({
         variables: {
           values: meeting,
         },
       })
       const newMeeting = data?.insert_meeting_one
-      if (!newMeeting) return console.error(errors)
+      if (!newMeeting) return console.error(error)
 
       track('meeting_created', {
         recurring: !!meeting.recurringId,

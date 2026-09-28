@@ -83,7 +83,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'data',
     source: 'npm',
     npmPackage: '@apollo/client',
-    updatePackages: ['@apollo/client'],
+    updatePackages: ['@apollo/client', 'rxjs'],
   },
   {
     id: 'graphql',

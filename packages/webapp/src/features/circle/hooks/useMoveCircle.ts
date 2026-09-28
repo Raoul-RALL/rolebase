@@ -13,11 +13,11 @@ export default function useMoveCircle() {
 
   return useCallback(
     async (circleId: string, targetCircleId: string | null) => {
-      const { data, errors } = await updateCircle({
+      const { data, error } = await updateCircle({
         variables: { id: circleId, values: { parentId: targetCircleId } },
       })
       const result = data?.update_circle_by_pk
-      if (errors || !result) throw errors?.[0]
+      if (error || !result) throw error
 
       // Log changes
       const circle = getOrgData()?.getCircle(circleId)

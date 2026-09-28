@@ -79,13 +79,13 @@ export default function useCopyCircle() {
       circlesInput.parentId = targetCircleId
 
       // Create new circles
-      const { data, errors } = await createCircles({
+      const { data, error } = await createCircles({
         variables: {
           circles: circlesInput,
         },
       })
       const newCircles = data?.insert_circle?.returning
-      if (errors || !newCircles) throw errors?.[0]
+      if (error || !newCircles) throw error
 
       // Log changes
       const copiedCircle = orgData.circleById.get(circleId)

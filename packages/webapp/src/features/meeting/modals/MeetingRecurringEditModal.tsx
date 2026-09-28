@@ -160,10 +160,10 @@ export default function MeetingRecurringEditModal({
               url: videoConfUrl,
             }
           : videoConfType
-          ? {
-              type: videoConfType,
-            }
-          : null
+            ? {
+                type: videoConfType,
+              }
+            : null
 
       const meetingUpdate = {
         ...data,
@@ -188,7 +188,7 @@ export default function MeetingRecurringEditModal({
         })
       } else {
         // Create recurring meeting
-        const { data, errors } = await createMeetingRecurring({
+        const { data, error } = await createMeetingRecurring({
           variables: {
             values: {
               orgId,
@@ -197,7 +197,7 @@ export default function MeetingRecurringEditModal({
           },
         })
         const newRecurringMeeting = data?.insert_meeting_recurring_one
-        if (!newRecurringMeeting) return console.error(errors)
+        if (!newRecurringMeeting) return console.error(error)
 
         onCreate?.(newRecurringMeeting.id)
 

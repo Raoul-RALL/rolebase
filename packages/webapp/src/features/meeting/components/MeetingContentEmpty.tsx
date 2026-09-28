@@ -14,12 +14,12 @@ export default function MeetingContentEmpty() {
   // Get previous meeting's steps if they exist
   const { data, loading } = useGetPrevMeetingStepsQuery({
     skip: !meeting || !circle,
-    variables: meeting &&
-      circle && {
-        beforeDate: meeting.startDate,
-        circleId: circle.id,
-        stepsIds: meeting.stepsConfig.map((s) => s.id),
-      },
+    // Unused while skipped
+    variables: {
+      beforeDate: meeting?.startDate ?? '',
+      circleId: circle?.id ?? '',
+      stepsIds: meeting?.stepsConfig.map((s) => s.id) ?? [],
+    },
   })
   const prevMeetingSteps = data?.meeting[0]?.steps
 

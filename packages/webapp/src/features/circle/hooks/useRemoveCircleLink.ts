@@ -13,10 +13,10 @@ export default function useRemoveCircleLink() {
 
   return useCallback(async (parentId: string, circleId: string) => {
     const archivedAt = new Date().toISOString()
-    const { data, errors } = await archiveCircleLink({
+    const { data, error } = await archiveCircleLink({
       variables: { parentId, circleId, archivedAt },
     })
-    if (errors?.length) throw errors[0]
+    if (error) throw error
     const circleLink = data?.update_circle_link?.returning[0]
     if (!circleLink) return
 

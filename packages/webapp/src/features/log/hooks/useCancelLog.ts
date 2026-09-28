@@ -15,7 +15,11 @@ import useArchiveCircle from '@/circle/hooks/useArchiveCircle'
 import useRestoreCircle from '@/circle/hooks/useRestoreCircle'
 import { cancelLogChanges } from '@rolebase/shared/helpers/log/cancelLogChanges'
 import { detectRecentEntitiesChanges } from '@rolebase/shared/helpers/log/detectRecentEntitiesChanges'
-import { EntitiesMethods, LogDisplay, LogType } from '@rolebase/shared/model/log'
+import {
+  EntitiesMethods,
+  LogDisplay,
+  LogType,
+} from '@rolebase/shared/model/log'
 import { useCallback } from 'react'
 import useCreateLog from './useCreateLog'
 
@@ -25,13 +29,17 @@ export function useCancelLog(log: LogFragment) {
   const restoreCircle = useRestoreCircle()
   const archiveCircle = useArchiveCircle()
 
-  const [getCircle] = useGetCircleLazyQuery()
+  const [getCircle] = useGetCircleLazyQuery({ fetchPolicy: 'network-only' })
   const [updateCircle] = useUpdateCircleMutation()
-  const [getRole] = useGetRoleLazyQuery()
+  const [getRole] = useGetRoleLazyQuery({ fetchPolicy: 'network-only' })
   const [updateRole] = useUpdateRoleMutation()
-  const [getCircleMember] = useGetCircleMemberLazyQuery()
+  const [getCircleMember] = useGetCircleMemberLazyQuery({
+    fetchPolicy: 'network-only',
+  })
   const [updateCircleMember] = useUpdateCircleMemberMutation()
-  const [getCircleLink] = useGetCircleLinkLazyQuery()
+  const [getCircleLink] = useGetCircleLinkLazyQuery({
+    fetchPolicy: 'network-only',
+  })
   const [updateCircleLink] = useUpdateCircleLinkMutation()
 
   const methods: EntitiesMethods = {
@@ -39,7 +47,6 @@ export function useCancelLog(log: LogFragment) {
       async get(id: string) {
         const { data } = await getCircle({
           variables: { id },
-          fetchPolicy: 'network-only',
         })
         return data?.circle_by_pk || undefined
       },
@@ -54,7 +61,6 @@ export function useCancelLog(log: LogFragment) {
       async get(id: string) {
         const { data } = await getCircleMember({
           variables: { id },
-          fetchPolicy: 'network-only',
         })
         return data?.circle_member_by_pk || undefined
       },
@@ -71,7 +77,6 @@ export function useCancelLog(log: LogFragment) {
       async get(id: string) {
         const { data } = await getCircleLink({
           variables: { id },
-          fetchPolicy: 'network-only',
         })
         return data?.circle_link_by_pk || undefined
       },
@@ -86,7 +91,6 @@ export function useCancelLog(log: LogFragment) {
       async get(id: string) {
         const { data } = await getRole({
           variables: { id },
-          fetchPolicy: 'network-only',
         })
         return data?.role_by_pk || undefined
       },

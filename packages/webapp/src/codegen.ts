@@ -33,6 +33,12 @@ const config: CodegenConfig = {
   config: {
     ...getConfig(),
     withRefetchFn: true,
+    // Apollo Client 4 exports React hooks and their types from a subpath
+    apolloReactCommonImportFrom: '@apollo/client/react',
+    apolloReactHooksImportFrom: '@apollo/client/react',
+    // Types relying on MutationFunction/BaseMutationOptions, removed in Apollo 4
+    withMutationFn: false,
+    withMutationOptionsType: false,
   },
 }
 

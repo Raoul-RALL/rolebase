@@ -1,9 +1,8 @@
-import { ApolloError } from '@apollo/client'
 import React from 'react'
 import TextError from './TextError'
 
 interface Props {
-  errors: Array<Error | ApolloError | null | undefined>
+  errors: Array<Error | null | undefined>
 }
 
 export default function TextErrors({ errors }: Props) {

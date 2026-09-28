@@ -17,10 +17,10 @@ export default function useAddCircleMember() {
 
   return useCallback(
     async (circleId: string, memberId: string) => {
-      const { data, errors } = await createCircleMember({
+      const { data, error } = await createCircleMember({
         variables: { memberId, circleId, orgId: orgId! },
       })
-      if (errors?.length) throw errors[0]
+      if (error) throw error
       const circleMember = data?.insert_circle_member_one!
 
       // Log change

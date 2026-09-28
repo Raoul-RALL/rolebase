@@ -29,7 +29,7 @@ export default function useSeparateFromBaseRole() {
 
       // Create an independent copy of the base role (base: false), keeping its
       // full content.
-      const { data: roleData, errors: roleErrors } = await createRole({
+      const { data: roleData, error: roleError } = await createRole({
         variables: {
           values: {
             orgId,
@@ -48,8 +48,8 @@ export default function useSeparateFromBaseRole() {
         },
       })
       const newRole = roleData?.insert_role_one
-      if (roleErrors || !newRole) {
-        throw roleErrors?.[0] ?? new Error('Unauthorized')
+      if (roleError || !newRole) {
+        throw roleError ?? new Error('Unauthorized')
       }
 
       // Repoint the circle to its own role. The two mutations can't run as one,
@@ -57,11 +57,11 @@ export default function useSeparateFromBaseRole() {
       // leaving an orphan role behind (a concurrent change can remove the right
       // between the two calls).
       try {
-        const { data, errors } = await updateCircle({
+        const { data, error } = await updateCircle({
           variables: { id: circleId, values: { roleId: newRole.id } },
         })
-        if (errors || !data?.update_circle_by_pk) {
-          throw errors?.[0] ?? new Error('Unauthorized')
+        if (error || !data?.update_circle_by_pk) {
+          throw error ?? new Error('Unauthorized')
         }
       } catch (error) {
         await archiveRole({

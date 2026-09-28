@@ -2,18 +2,13 @@ import ScrollableLayout from '@/common/atoms/ScrollableLayout'
 import { Title } from '@/common/atoms/Title'
 import SidebarGroupTitle from '@/layout/components/SidebarGroupTitle'
 import SidebarItemLink from '@/layout/components/SidebarItemLink'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
 import { Box, Flex, Heading, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router'
 import { createApolloClient } from 'src/apolloClient'
-import {
-  ExportIcon,
-  MembersIcon,
-  NewsIcon,
-  SuperAdminIcon,
-} from 'src/icons'
+import { ExportIcon, MembersIcon, NewsIcon, SuperAdminIcon } from 'src/icons'
 
 const sidebarWidth = '250px'
 
@@ -59,9 +54,7 @@ export default function SuperAdminLayout() {
             }}
           >
             <VStack align="stretch" spacing={1}>
-              <SidebarGroupTitle>
-                {t('SuperAdmin.heading')}
-              </SidebarGroupTitle>
+              <SidebarGroupTitle>{t('SuperAdmin.heading')}</SidebarGroupTitle>
               <SidebarItemLink to="/admin" icon={NewsIcon}>
                 {t('SuperAdmin.sidebar.dashboard')}
               </SidebarItemLink>
