@@ -1,5 +1,6 @@
 ## General rules
 
+- Always write to the user in French.
 - Never read `.env`. You can read `.env.example`.
 - Don't co-author git commits with Claude.
 - Never commit or push without explicit user approval, even for small follow-up fixes. One approval covers one commit, not the whole session.
