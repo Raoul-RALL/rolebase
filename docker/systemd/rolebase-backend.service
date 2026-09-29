@@ -8,9 +8,9 @@ Type=simple
 User=raoul
 WorkingDirectory=/home/raoul/DevSite/Rolebase/packages/backend
 # npx and the tools it starts resolve `node` from PATH: use the nvm Node, not the system one
-Environment=PATH=/home/raoul/.nvm/versions/node/v22.23.2/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PATH=/home/raoul/.nvm/versions/node/v24.21.0/bin:/usr/local/bin:/usr/bin:/bin
 Environment=NODE_ENV=production
-ExecStart=/home/raoul/.nvm/versions/node/v22.23.2/bin/npx tsx src/index.ts
+ExecStart=/home/raoul/.nvm/versions/node/v24.21.0/bin/npx tsx src/index.ts
 Restart=always
 RestartSec=5
 

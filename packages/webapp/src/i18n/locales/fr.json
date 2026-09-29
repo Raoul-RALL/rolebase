@@ -1084,9 +1084,10 @@
     "upToDate": "À jour",
     "update": "Mettre à jour",
     "updating": "En cours…",
-    "manualMigration": "Migration manuelle",
+    "manualMigration": "Mise à jour manuelle",
     "manualMigrationHints": {
-      "chakra": "La version majeure suivante demande de réécrire l'interface (plus de 2 000 changements dans quelque 370 fichiers) : elle ne peut pas être faite automatiquement."
+      "chakra": "La version majeure suivante demande de réécrire l'interface (plus de 2 000 changements dans quelque 370 fichiers) : elle ne peut pas être faite automatiquement.",
+      "node": "Node.js tourne sur le serveur : installer la version avec nvm, la reporter dans docker/systemd/*.service, puis réinstaller et redémarrer ces services avec sudo."
     },
     "backendUnreachable": "Le backend ne répond pas (redémarrage en cours ?). Nouvelle tentative automatique…",
     "job": {

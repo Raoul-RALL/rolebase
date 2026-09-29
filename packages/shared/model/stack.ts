@@ -22,8 +22,8 @@ export interface StackTechnology {
   // button, in every workspace declaring them. A trailing "*" matches a scope.
   // No update button without it (infrastructure: Node.js, Hasura).
   updatePackages?: string[]
-  // Next major needs code changes the update button can't make: shown as a
-  // manual migration, explained by StackPage.manualMigrationHints.<id>
+  // Update the button can't make (code changes, server setup): shown as a
+  // manual update, explained by StackPage.manualMigrationHints.<id>
   manualMigration?: boolean
 }
 
@@ -44,7 +44,13 @@ export const stackTechnologies: StackTechnology[] = [
     npmPackage: 'typescript',
     updatePackages: ['typescript'],
   },
-  { id: 'node', name: 'Node.js', category: 'runtime', source: 'node' },
+  {
+    id: 'node',
+    name: 'Node.js',
+    category: 'runtime',
+    source: 'node',
+    manualMigration: true,
+  },
   {
     id: 'vite',
     name: 'Vite',

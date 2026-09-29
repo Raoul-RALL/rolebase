@@ -1051,9 +1051,10 @@
     "upToDate": "Up to date",
     "update": "Update",
     "updating": "Updating…",
-    "manualMigration": "Manual migration",
+    "manualMigration": "Manual update",
     "manualMigrationHints": {
-      "chakra": "The next major version requires rewriting the interface (over 2,000 changes in about 370 files): it can't be done automatically."
+      "chakra": "The next major version requires rewriting the interface (over 2,000 changes in about 370 files): it can't be done automatically.",
+      "node": "Node.js runs on the server: install the version with nvm, set it in docker/systemd/*.service, then reinstall and restart these services with sudo."
     },
     "backendUnreachable": "The backend doesn't respond (restarting?). Retrying automatically…",
     "job": {
