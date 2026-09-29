@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Badge, Button, Tooltip } from '@chakra-ui/react'
 import { StackTechnology } from '@rolebase/shared/model/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,20 @@ interface Props {
 export default function StackUpdateButton({ technology, isOutdated }: Props) {
   const { t } = useTranslation()
   const { job, startUpdate } = useStackUpdateContext()
+
+  if (technology.manualMigration) {
+    if (!isOutdated) return null
+    return (
+      <Tooltip
+        label={t(`StackPage.manualMigrationHints.${technology.id}` as any)}
+        hasArrow
+      >
+        <Badge colorScheme="orange" tabIndex={0} cursor="help">
+          {t('StackPage.manualMigration')}
+        </Badge>
+      </Tooltip>
+    )
+  }
 
   if (!technology.updatePackages) return null
 

@@ -1084,6 +1084,10 @@
     "upToDate": "À jour",
     "update": "Mettre à jour",
     "updating": "En cours…",
+    "manualMigration": "Migration manuelle",
+    "manualMigrationHints": {
+      "chakra": "La version majeure suivante demande de réécrire l'interface (plus de 2 000 changements dans quelque 370 fichiers) : elle ne peut pas être faite automatiquement."
+    },
     "backendUnreachable": "Le backend ne répond pas (redémarrage en cours ?). Nouvelle tentative automatique…",
     "job": {
       "title": "Mise à jour de {{name}}",
@@ -1097,6 +1101,7 @@
       "restartBackend": "Le backend utilise ces paquets : redémarrez-le pour qu'il les charge (sudo systemctl restart rolebase-backend.service).",
       "failedInfo": "La vérification a échoué à l'étape « {{step}} » : les versions précédentes ont été restaurées. Le détail est dans le journal ci-dessous.",
       "reload": "Recharger la page",
+      "close": "Fermer",
       "logLabel": "Journal de la mise à jour"
     },
     "columns": {

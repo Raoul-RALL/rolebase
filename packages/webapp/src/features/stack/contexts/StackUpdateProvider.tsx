@@ -6,6 +6,7 @@ import { trpc } from 'src/trpc'
 import { StackUpdateContext } from './StackUpdateContext'
 
 const POLL_INTERVAL = 3000
+const DISMISSED_KEY = 'stack-update-dismissed'
 
 interface Props {
   children: ReactNode
@@ -23,6 +24,14 @@ export default function StackUpdateProvider({ children }: Props) {
   const [job, setJob] = useState<StackUpdateJob | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [unreachable, setUnreachable] = useState(false)
+  // Start date of the finished job the user closed
+  const [dismissedAt, setDismissedAt] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem(DISMISSED_KEY)
+    } catch {
+      return null
+    }
+  })
 
   const fetchJob = useCallback(async () => {
     if (!orgId) return
@@ -66,9 +75,24 @@ export default function StackUpdateProvider({ children }: Props) {
     [orgId]
   )
 
+  const dismissJob = useCallback(() => {
+    if (!job) return
+    setDismissedAt(job.startedAt)
+    try {
+      localStorage.setItem(DISMISSED_KEY, job.startedAt)
+    } catch {
+      // Not persisted: hidden until the page is reloaded
+    }
+  }, [job])
+
+  const visibleJob =
+    job && job.status !== 'running' && job.startedAt === dismissedAt
+      ? null
+      : job
+
   return (
     <StackUpdateContext.Provider
-      value={{ job, error, unreachable, startUpdate }}
+      value={{ job: visibleJob, error, unreachable, startUpdate, dismissJob }}
     >
       {children}
     </StackUpdateContext.Provider>

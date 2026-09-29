@@ -1051,6 +1051,10 @@
     "upToDate": "Up to date",
     "update": "Update",
     "updating": "Updating…",
+    "manualMigration": "Manual migration",
+    "manualMigrationHints": {
+      "chakra": "The next major version requires rewriting the interface (over 2,000 changes in about 370 files): it can't be done automatically."
+    },
     "backendUnreachable": "The backend doesn't respond (restarting?). Retrying automatically…",
     "job": {
       "title": "{{name}} update",
@@ -1064,6 +1068,7 @@
       "restartBackend": "The backend uses these packages: restart it to load them (sudo systemctl restart rolebase-backend.service).",
       "failedInfo": "Checks failed at step \"{{step}}\": previous versions have been restored. Details are in the log below.",
       "reload": "Reload page",
+      "close": "Close",
       "logLabel": "Update log"
     },
     "columns": {

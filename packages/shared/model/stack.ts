@@ -22,6 +22,9 @@ export interface StackTechnology {
   // button, in every workspace declaring them. A trailing "*" matches a scope.
   // No update button without it (infrastructure: Node.js, Hasura).
   updatePackages?: string[]
+  // Next major needs code changes the update button can't make: shown as a
+  // manual migration, explained by StackPage.manualMigrationHints.<id>
+  manualMigration?: boolean
 }
 
 export const stackTechnologies: StackTechnology[] = [
@@ -66,7 +69,7 @@ export const stackTechnologies: StackTechnology[] = [
     category: 'styling',
     source: 'npm',
     npmPackage: '@chakra-ui/react',
-    updatePackages: ['@chakra-ui/react'],
+    manualMigration: true,
   },
   { id: 'hasura', name: 'Hasura', category: 'api', source: 'hasura' },
   {

@@ -8,6 +8,8 @@ export interface StackUpdateContextValue {
   // Backend not responding, retried automatically
   unreachable: boolean
   startUpdate(technologyId: string): Promise<void>
+  // Hides the finished job
+  dismissJob(): void
 }
 
 const defaultValue: StackUpdateContextValue = {
@@ -15,6 +17,7 @@ const defaultValue: StackUpdateContextValue = {
   error: null,
   unreachable: false,
   startUpdate: async () => undefined,
+  dismissJob: () => undefined,
 }
 
 export const StackUpdateContext =

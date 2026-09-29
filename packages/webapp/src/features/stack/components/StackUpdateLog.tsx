@@ -6,6 +6,7 @@ import {
   Button,
   HStack,
   Heading,
+  Spacer,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -23,7 +24,7 @@ const statusColors = {
 // Progress and output of the last update job
 export default function StackUpdateLog() {
   const { t } = useTranslation()
-  const { job, error, unreachable } = useStackUpdateContext()
+  const { job, error, unreachable, dismissJob } = useStackUpdateContext()
   const logRef = useRef<HTMLPreElement>(null)
 
   // Follow the end of the log
@@ -32,6 +33,7 @@ export default function StackUpdateLog() {
   }, [job?.log])
 
   const handleReload = () => window.location.reload()
+  const handleClose = () => dismissJob()
 
   if (!job && !error && !unreachable) return null
 
@@ -64,6 +66,12 @@ export default function StackUpdateLog() {
             <Badge colorScheme={statusColors[job.status]}>
               {t(`StackPage.job.status.${job.status}`)}
             </Badge>
+            <Spacer />
+            {job.status !== 'running' && (
+              <Button size="sm" variant="ghost" onClick={handleClose}>
+                {t('StackPage.job.close')}
+              </Button>
+            )}
           </HStack>
 
           {job.step && (
