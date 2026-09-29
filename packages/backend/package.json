@@ -10,11 +10,7 @@
     "test": "vitest",
     "docker:build": "cd ../.. && docker build --tag rolebase-backend -f packages/backend/Dockerfile .",
     "docker:run": "docker run -p 8888:8888 --env-file ../../.secrets --add-host=host.docker.internal:host-gateway --add-host=local.auth.nhost.run:host-gateway --add-host=local.db.nhost.run:host-gateway --add-host=local.functions.nhost.run:host-gateway --add-host=local.graphql.nhost.run:host-gateway --add-host=local.hasura.nhost.run:host-gateway --add-host=local.storage.nhost.run:host-gateway -d rolebase-backend",
-    "docker:inspect": "docker run --rm -it rolebase-backend /bin/sh",
-    "docker:deploy": "cd ../.. && docker buildx build -f packages/backend/Dockerfile --push --platform linux/amd64,linux/arm64 -t registry.eu-central-1.nhost.run/94212868-126b-47d0-bc96-4a9ac670c2ea:1.0.10 .",
-    "nhost:config:validate": "cd ../.. && nhost run config-validate --config packages/backend/nhost-service.toml --service-id 94212868-126b-47d0-bc96-4a9ac670c2ea",
-    "nhost:config:pull": "cd ../.. && nhost run config-pull --config packages/backend/nhost-service.toml --service-id 94212868-126b-47d0-bc96-4a9ac670c2ea",
-    "nhost:config:deploy": "cd ../.. && nhost run config-deploy --config packages/backend/nhost-service.toml --service-id 94212868-126b-47d0-bc96-4a9ac670c2ea"
+    "docker:inspect": "docker run --rm -it rolebase-backend /bin/sh"
   },
   "dependencies": {
     "@jrmdayn/googleapis-batcher": "^0.5.0",
