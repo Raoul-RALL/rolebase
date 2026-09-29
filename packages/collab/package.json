@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env HOST=localhost PORT=1234 npx y-websocket",
-    "start": "HOST=0.0.0.0 PORT=1234 npx y-websocket",
+    "dev": "cross-env HOST=localhost PORT=1234 node server.js",
+    "start": "HOST=0.0.0.0 PORT=1234 node server.js",
     "docker:build": "cd ../.. && docker build --tag rolebase-collab -f packages/collab/Dockerfile .",
     "docker:run": "docker run -p 1234:1234 -v rolebase_collab_data:/data -e YPERSISTENCE=/data -d --restart always --name rolebase-collab rolebase-collab"
   },
   "dependencies": {
-    "y-websocket": "^1.4.5"
+    "y-websocket": "^1.4.5",
+    "ws": "^8.21.3"
   }
 }

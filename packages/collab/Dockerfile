@@ -10,6 +10,8 @@ COPY ../../packages/collab/package.json ./packages/collab/
 RUN --mount=type=cache,target=/root/.npm \
   npm ci
 
+COPY ../../packages/collab/server.js ./packages/collab/
+
 EXPOSE 1234
 VOLUME /data
 
