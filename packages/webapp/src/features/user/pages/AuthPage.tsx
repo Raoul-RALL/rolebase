@@ -25,7 +25,7 @@ export default function AuthPage() {
   const { t } = useTranslation()
   const location = useLocation()
   const queryParams = useQueryParams<Params>()
-  const [mode, setMode] = useState<AuthStep>(queryParams.mode || 'otp')
+  const [mode, setMode] = useState<AuthStep>(queryParams.mode || 'login')
 
   const isInvitationPage = location.pathname.includes('/invitation')
 
